@@ -7,6 +7,7 @@ import Product_Card from '@/components/Product_Card'
 export default function Home() {
   return (
     <>
+
       <main className='bg-[#fbfbfb]'>
         {/* Categories */}
           <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
@@ -47,20 +48,34 @@ export default function Home() {
 
              {/* Carousel */}
              
-             <Link href={"#"}><img className=' mt-5 w-11/12 mx-auto h-36 rounded-xl' src="./banner.webp" /></Link> 
+             <Link href={"#"}><img className=' mt-5 w-11/12 mx-auto h-40 rounded-xl' src="./banner.webp" /></Link> 
 
              {/* Trending products */}
 
-            <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto mt-4 text-lg px-1'>
-                 <h2 className=' font-bold'>Popular Deals</h2>
+            <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
+                 <h2 className=' text-xl font-bold'>Popular Deals</h2>
                  <Link className=' text-[#ffc700] underline cursor-pointer' href={"#"}>View All</Link>
             </div>
 
-            {/* Product Card */}
-            <div className='card-container'>
-              <Product_Card />
+                    {/* Product Card */}
+                    <div className='card-container mb-3 flex justify-between  flex-wrap'>
+                    <Product_Card />
+                    </div>
+
+            {/* Diary Products */}
+
+            <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
+                 <h2 className=' text-xl font-bold'>Cold Drinks & Beverages</h2>
+                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"#"}>View All</Link>
             </div>
+
+                    {/* Product Card */}
+                    <div className='card-container mb-3 flex justify-between  flex-wrap'>
+                    <Product_Card />
+                    </div>
       </main>
+
+    
     </>
   )
 }

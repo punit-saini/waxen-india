@@ -5,10 +5,13 @@ import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return (
-      <Layout>
+     <>
+     <Layout>
         <Toaster />
         <Component {...pageProps} />
       </Layout>
+     </>
+      
   )
 }
 
