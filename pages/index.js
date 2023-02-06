@@ -1,10 +1,16 @@
 
 import { Inter } from '@next/font/google'
+import React from 'react'
 const inter = Inter({ subsets: ['latin'] })
 import Link from 'next/link'
+// import imageUrlBuilder from '@sanity/image-url'
 import Product_Card from '@/components/Product_Card'
+// import product from '@/sanity/schemas/product';
+import { client } from '../lib/client';
 
-export default function Home() {
+
+export default function Home({products}) {
+
   return (
     <>
 
@@ -58,8 +64,14 @@ export default function Home() {
             </div>
 
                     {/* Product Card */}
+
+              
                     <div className='card-container mb-3 flex justify-between  flex-wrap'>
-                    <Product_Card />
+                  
+                              <Product_Card productsData={products} />
+                    
+                              
+                            
                     </div>
 
             {/* Diary Products */}
@@ -71,7 +83,9 @@ export default function Home() {
 
                     {/* Product Card */}
                     <div className='card-container mb-3 flex justify-between  flex-wrap'>
-                    <Product_Card />
+                          {/* <Product_Card /> */}
+                    
+                    
                     </div>
       </main>
 
@@ -79,3 +93,16 @@ export default function Home() {
     </>
   )
 }
+
+
+
+export async function getStaticProps() {
+    
+    const products = await client.fetch(`*[_type == "product"]`);
+    return {
+      props: {
+        products
+      }
+    };
+  }
+

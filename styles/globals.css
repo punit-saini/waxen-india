@@ -15,7 +15,9 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -61,10 +63,10 @@ nav ul li a{
   cursor: pointer;
   transition: .3s ease-in-out;
 }
-.product-detail-image:hover{
+/* .product-detail-image:hover{
   background-color: #ffc700;
 
-}
+} */
 .small-images-container{
   display: flex;
   gap: 10px;
@@ -80,3 +82,17 @@ nav ul li a{
 .selected-image{
   background-color:#ffc700;
 }
+
+/* product detail page */
+
+.selected-class {
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.stars img {
+  width: 1rem;
+}
+
+/* cart page */
+

@@ -3,9 +3,12 @@ import Head from 'next/head';
 
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { useStateContext } from '../context/StateContext';
 
 
 const Layout = ({ children }) => {
+
+    const { showCart } = useStateContext();
   return (
     <div className="layout">
       <Head>
@@ -18,7 +21,7 @@ const Layout = ({ children }) => {
         <header className="bg-[#22292e]">
           <Navbar />
         </header>
-        <main className="main-container">
+        <main className={`main-container ${showCart && 'hidden'}`}>
           {children}
         </main>
         <Footer/>
