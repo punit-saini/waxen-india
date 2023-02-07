@@ -9,8 +9,7 @@ import Product_Card from '@/components/Product_Card'
 import { client } from '../lib/client';
 
 
-export default function Home({products}) {
-
+export default function Home({popularDeals, drinksNBeverages}) {
   return (
     <>
 
@@ -28,7 +27,7 @@ export default function Home({products}) {
               
               <div className="category-card w-32 flex flex-col pr-1">
                   <img className='w-16 h-8 rounded-lg' src="./dairy.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Dairy Products</Link>
+                  <Link className="text-[12px] leading-none font-semibold" href={"/category/dairy"}>Dairy Products</Link>
               </div>
               <div className="category-card w-32 flex flex-col pr-1">
                   <img className='w-16 h-8 rounded-lg' src="./drinks.png" />
@@ -68,7 +67,7 @@ export default function Home({products}) {
               
                     <div className='card-container mb-3 flex justify-between  flex-wrap'>
                   
-                              <Product_Card productsData={products} />
+                              <Product_Card productsData={popularDeals} />
                     
                               
                             
@@ -83,8 +82,7 @@ export default function Home({products}) {
 
                     {/* Product Card */}
                     <div className='card-container mb-3 flex justify-between  flex-wrap'>
-                          {/* <Product_Card /> */}
-                    
+                          <Product_Card productsData={drinksNBeverages} />
                     
                     </div>
       </main>
@@ -98,10 +96,11 @@ export default function Home({products}) {
 
 export async function getStaticProps() {
     
-    const products = await client.fetch(`*[_type == "product"]`);
+    const popularDeals = await client.fetch(`*[_type == "product" && tags[0] == 'popular']`);
+    const drinksNBeverages = await client.fetch(`*[_type == "product" && category == "drinks-n-beverages"]`);
     return {
       props: {
-        products
+        popularDeals, drinksNBeverages
       }
     };
   }

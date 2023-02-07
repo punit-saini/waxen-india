@@ -1,6 +1,6 @@
 export default ()=>{
     return (
-    <footer className=" bg-zinc-800 mx-auto text-center text-[#8a8a8e] py-5">
+    <footer className=" bg-zinc-800 mx-auto text-center text-[#8a8a8e] py-5 bottom-0">
        <img className=" w-3/5 mx-auto" src="../logo.png" />
        <nav className="w-5/6 mx-auto">
           <ul className="flex text-gray-300 flex-wrap justify-around pt-3 text-sm">

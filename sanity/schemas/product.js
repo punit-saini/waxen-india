@@ -67,7 +67,7 @@ export default {
       },
       {
         name : 'description',
-        type : 'string',
+        type : 'text',
         title : 'Description',
         validation: Rule => Rule.required()
       },
@@ -76,6 +76,12 @@ export default {
         type : 'number',
         title : 'StockQuantity',
         validation: Rule => Rule.required()
+      },
+      {
+        name : 'tags',
+        type : 'array',
+        title : 'Tags',
+        of : [{type : 'string'}]
       },
       {
         name: 'image',
