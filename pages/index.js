@@ -9,7 +9,8 @@ import Product_Card from '@/components/Product_Card'
 import { client } from '../lib/client';
 
 
-export default function Home({popularDeals, drinksNBeverages}) {
+export default  function Home({popularDeals, drinksNBeverages, dairy , grocery}) {
+
   return (
     <>
 
@@ -18,11 +19,11 @@ export default function Home({popularDeals, drinksNBeverages}) {
           <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
               <div className="category-card w-32 flex flex-col pr-1">
                   <img className='w-16 h-8 rounded-lg' src="./vegetables.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Fruits & Vegetables</Link>
+                  <Link className="text-[12px] leading-none font-semibold" href={"/category/fruits-n-vegetables"}>Fruits & Vegetables</Link>
               </div>
               <div className="category-card w-32 flex flex-col pr-1">
                   <img className='w-16 h-8 rounded-lg' src="./meat.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Meat</Link>
+                  <Link className="text-[12px] leading-none font-semibold" href={"/category/groceries"}>Groceries</Link>
               </div>
               
               <div className="category-card w-32 flex flex-col pr-1">
@@ -31,24 +32,14 @@ export default function Home({popularDeals, drinksNBeverages}) {
               </div>
               <div className="category-card w-32 flex flex-col pr-1">
                   <img className='w-16 h-8 rounded-lg' src="./drinks.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Drink & Beverages</Link>
+                  <Link className="text-[12px] leading-none font-semibold" href={"/category/drinks-n-beverages"}>Drink & Beverages</Link>
               </div>
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./vegetables.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Vegetables</Link>
-              </div>
+              
               <div className="category-card w-32 flex flex-col pr-1">
                   <img className='w-16 h-8 rounded-lg' src="./dairy.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Dairy Products</Link>
+                  <Link className="text-[12px] leading-none font-semibold" href={"/category/services"}>Services</Link>
               </div>
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./meat.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Meat</Link>
-              </div>
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./dairy.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"#"}>Dairy Products</Link>
-              </div>
+            
           </div>
 
              {/* Carousel */}
@@ -59,7 +50,7 @@ export default function Home({popularDeals, drinksNBeverages}) {
 
             <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
                  <h2 className=' text-xl font-bold'>Popular Deals</h2>
-                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"#"}>View All</Link>
+                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"/popular-deals"}>View All</Link>
             </div>
 
                     {/* Product Card */}
@@ -73,11 +64,11 @@ export default function Home({popularDeals, drinksNBeverages}) {
                             
                     </div>
 
-            {/* Diary Products */}
+            {/* Drinks n beverages Products */}
 
             <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
                  <h2 className=' text-xl font-bold'>Cold Drinks & Beverages</h2>
-                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"#"}>View All</Link>
+                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"/category/drinks-n-beverages"}>View All</Link>
             </div>
 
                     {/* Product Card */}
@@ -85,6 +76,36 @@ export default function Home({popularDeals, drinksNBeverages}) {
                           <Product_Card productsData={drinksNBeverages} />
                     
                     </div>
+
+           {/* Dairy Products */}
+
+           <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
+                 <h2 className=' text-xl font-bold'>Dairy</h2>
+                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"/category/dairy"}>View All</Link>
+            </div>
+
+                    {/* Product Card */}
+                    <div className='card-container mb-3 flex justify-between  flex-wrap'>
+                          <Product_Card productsData={dairy} />
+                    
+                    </div>
+          
+
+           {/* Grocery Products */}
+
+           <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
+                 <h2 className=' text-xl font-bold'>Grocery</h2>
+                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"/category/groceries"}>View All</Link>
+            </div>
+
+                    {/* Product Card */}
+                    <div className='card-container mb-3 flex justify-between  flex-wrap'>
+                          <Product_Card productsData={grocery} />
+                    
+                    </div>
+
+
+
       </main>
 
     
@@ -96,11 +117,14 @@ export default function Home({popularDeals, drinksNBeverages}) {
 
 export async function getStaticProps() {
     
-    const popularDeals = await client.fetch(`*[_type == "product" && tags[0] == 'popular']`);
+    const popularDeals = await client.fetch(`*[_type == "product" && ('popular' in tags)]`);
     const drinksNBeverages = await client.fetch(`*[_type == "product" && category == "drinks-n-beverages"]`);
+    const dairy = await client.fetch(`*[_type == "product" && category == "dairy"]`)
+    const grocery = await client.fetch(`*[_type == "product" && category == "grocery"]`)
+
     return {
       props: {
-        popularDeals, drinksNBeverages
+        popularDeals, drinksNBeverages, dairy, grocery
       }
     };
   }
