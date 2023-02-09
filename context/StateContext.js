@@ -14,6 +14,8 @@ export const StateContext = ({children}) => {
     const [qty, setQty] = useState(1); 
     const [isDesc, setIsDesc] = useState(true);
     const [query, setQuery] = useState('');
+    const [imagevar, setImageVar]=useState("add");
+
 
 
     let foundProduct;
@@ -83,15 +85,39 @@ export const StateContext = ({children}) => {
    
       foundProduct = cartItems.find((item) => item._id === id)
       index = cartItems.findIndex((product) => product._id === id);
-      const newCartItems = cartItems.filter((item) => item._id !== id)
-      console.log('found product is : ', foundProduct, '\n index is :', index, '\n new cart items is ', newCartItems)
+      console.log( 'cart items is quantity : ' , cartItems[index].quantity)
+      const newCartItems = cartItems.map((cartItem)=>{
+        if(cartItem._id == id){
+          if(value == 'inc'){
+            return {
+              ...cartItem,
+              quantity : cartItem.quantity + 1,
+           }
+          }
+          else {
+            return {
+              ...cartItem,
+              quantity : cartItem.quantity -1,
+           
+          }
+          
+        }}
+        else {
+            return cartItem
+        }
+      })
+      // const newCartItems = cartItems[index].quantity +=1;
+      // const newCartItems = cartItems.filter((item) => item._id !== id)
+      // console.log('found product is : ', foundProduct, '\n index is :', index, '\n new cart items is ', newCartItems)
       if(value === 'inc') {
-        setCartItems([ { ...foundProduct, quantity: foundProduct.quantity + 1 },...newCartItems ]);
+        // setCartItems([ { ...foundProduct, quantity: foundProduct.quantity + 1 },...newCartItems ]);
+         setCartItems([...newCartItems])
         setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.finalPrice)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
       } else if(value === 'dec') {
         if (foundProduct.quantity > 1) {
-          setCartItems([ { ...foundProduct, quantity: foundProduct.quantity - 1 }, ...newCartItems ]);
+          // setCartItems([ { ...foundProduct, quantity: foundProduct.quantity - 1 }, ...newCartItems ]);
+          setCartItems([...newCartItems])
           setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.finalPrice)
           setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
         }
@@ -127,7 +153,9 @@ export const StateContext = ({children}) => {
         setTotalQuantities,
         checkAuth,
         query,
-        setQuery
+        setQuery,
+        imagevar,
+        setImageVar
       }}
     >
       {children}

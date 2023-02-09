@@ -9,7 +9,7 @@ import { urlFor } from '@/lib/client';
   export default function({data}){
          const {fullName, finalPrice, actualPrice, image, qtyUnit, description} = data
   const [index, setIndex] = useState(0)
-  const { isDesc, setIsDesc,adder, qty, incQty, decQty } = useStateContext();
+  const { isDesc, setIsDesc,adder, qty, incQty, decQty, setShowCart } = useStateContext();
 
   return (
     <div className="">
@@ -43,15 +43,16 @@ import { urlFor } from '@/lib/client';
                     <h2 className='price font-bold text-2xl'>₹ {finalPrice} <span className=' text-xs text-[#8a8a8e] font-light'>{qtyUnit}</span></h2>
                     <div className='addToCart flex justify-end gap-1'>
                        <button onClick={decQty} className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>-</button>
-                       <p className='px-2 font-bold rounded-lg text-xl bg-white border-2 border-[#828282] w-8'>{qty}</p>
+                       {/* <p className='px-2 font-bold rounded-lg text-xl bg-white border-2 border-[#828282] w-8'>{qty}</p> */}
+                       <button className='px-2 font-bold rounded-lg text-l bg-white border-2 border-[#828282]'>{qty}</button>
                        <button onClick={incQty} className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>+</button>
                     </div>
                 </div>
         </div>
 
-        <div className='cta-btns w-11/12 mx-auto my-5 flex justify-around text-'>
-            <button className='cta-btn rounded-3xl px-3 py-2 drop-shadow-lg hover:drop-shadow-sm font-bold  border-2 bg-white border-[#ffc700] text-[#ffc700]' onClick={() =>adder(data, qty)}> Add To Cart</button>
-            <Link className='cta-btn rounded-3xl px-3 py-2 drop-shadow-lg hover:drop-shadow-sm font-bold bg-[#ffc700] text-white' href={'#'}>Buy Now</Link>
+        <div className='cta-btns w-11/12 mx-auto my-5 flex justify-around text-center'>
+            <button className='cta-btn rounded-3xl px-3 py-2 drop-shadow-lg hover:drop-shadow-sm font-bold  border-2 bg-white border-[#ffc700] text-[#ffc700] outline' onClick={() =>adder(data, qty)}> Add To Cart</button>
+            <button className='cta-btn rounded-3xl px-3 py-2 drop-shadow-xl hover:drop-shadow-sm font-bold bg-[#ffc700] text-white outline' onClick={()=> {adder(data,qty); setShowCart('true')}}>Buy Now</button>
         </div>
 
         <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
@@ -113,7 +114,6 @@ export async function getStaticPaths(slug) {
 export async function getStaticProps ({ params: { slug }}) {
   console.log('slug is :'+ slug)
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  // const productsQuery = '*[_type == "product"]'
   
   const product = await client.fetch(query);
   

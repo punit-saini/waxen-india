@@ -23,11 +23,11 @@ export default ()=>{
         <div className="bg-[#22292e] pb-4">
             <div className="brandNicons flex justify-between w-11/12 align-middle mx-auto pt-4">
                <div className="top-logo w-44">
-                  <Link href={'/'}><img src="../logo.png" alt="waxen-india logo" /></Link>
+                  <Link href={'/'}><img onClick={()=> setShowCart(false)} src="../logo.png" alt="waxen-india logo" /></Link>
                </div>
-               <div className="top-icons cursor-pointer"  onClick={() => setShowCart((currentCart)=> !currentCart)}>
+               <div className="top-icons cursor-pointer flex justify-end items-center"  onClick={() => setShowCart((currentCart)=> !currentCart)}>
                   <img src="../Shopping Cart.png" className=" w-7" alt="shopping cart icon" />
-                  <span className={` ${cartItems.length>=1? '' : 'hidden'} rounded-full relative bottom-10 left-4 text-white text-xs px-1 bg-red-500`}>{cartItems.length}</span>
+                  <span className={` ${cartItems.length>=1? '' : 'hidden'} rounded-full relative right-2 bottom-2 text-white text-xs px-1 bg-red-500`}>{cartItems.length}</span>
                </div>
             </div>
           

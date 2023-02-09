@@ -44,7 +44,7 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
 
              {/* Carousel */}
              
-             <Link href={"#"}><img className=' mt-5 w-11/12 mx-auto h-40 rounded-xl' src="./banner.webp" /></Link> 
+             <Link href={"#"}><img className=' mt-5 w-11/12 mx-auto h-40 rounded-xl drop-shadow-xl' src="./banner.png" /></Link> 
 
              {/* Trending products */}
 

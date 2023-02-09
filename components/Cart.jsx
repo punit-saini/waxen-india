@@ -50,10 +50,10 @@ export default function cart(){
             return (
           <div className="cart-product flex gap-5 bg-gray-50 drop-shadow-md rounded py-2 mb-8 px-2"  >
                 <div className="cart-product-imageNqty w-1/3 flex flex-col gap-2 justify-center">
-                        <img src={urlFor(cartItem.image[0])} className=' max-h-32' />
+                        <img src={urlFor(cartItem.image[0])} className='  max-h-28' />
                         <div className='addToCart flex justify-end gap-1'>
                             <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'dec') } className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>-</button>
-                            <button className='px-2 font-bold rounded-lg text-xl bg-white border-2 border-[#828282]'>{cartItem.quantity}</button>
+                            <button className='px-2 font-bold rounded-lg text-l bg-white border-2 border-[#828282]'>{cartItem.quantity}</button>
                             <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'inc') } className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>+</button>
                         </div>
                 </div>
@@ -72,9 +72,9 @@ export default function cart(){
                         <p className='line-through text-sm text-[#828282]'>{cartItem.actualPrice}</p>
                         <p className='text-green-700 '>{Math.floor(100-((cartItem.finalPrice/cartItem.actualPrice)*100))}% off</p>
                     </div>
-                    <div className="cart-product-remove flex mt-5 items-center justify-end gap-1">
+                    <div onClick={()=> onRemove(cartItem)} className="cart-product-remove flex mt-5 items-center justify-end gap-1">
                         <img className='w-6' src='../trash.png' />
-                        <button className=' text-slate-600' onClick={() => onRemove(cartItem)} > Remove </button>
+                        <button className=' text-slate-600' > Remove </button>
                     </div>
                 </div>
            </div>)
