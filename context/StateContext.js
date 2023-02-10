@@ -4,9 +4,9 @@ import { toast } from 'react-hot-toast';
 
 const Context = createContext();
 
-
 export const StateContext = ({children}) => {
-
+      
+  
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -17,9 +17,26 @@ export const StateContext = ({children}) => {
     const [imagevar, setImageVar]=useState("add");
 
 
+    useEffect(() => {
+      const localCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      const localTotalPrice = parseFloat(localStorage.getItem('totalPrice') || '0');
+      if(localCartItems) setCartItems(localCartItems);
+      if(localTotalPrice) setTotalPrice(localTotalPrice);
+    
+    }, []);
+ 
 
     let foundProduct;
     let index;
+
+
+    useEffect(() => {
+      if (cartItems?.length) {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      localStorage.setItem('totalPrice', totalPrice.toString());}
+    }, [cartItems, totalPrice]);
+  
+
 
     function checkAuth(){
       console.log('inside checkAuth function', cartItems.length);
@@ -106,17 +123,13 @@ export const StateContext = ({children}) => {
             return cartItem
         }
       })
-      // const newCartItems = cartItems[index].quantity +=1;
-      // const newCartItems = cartItems.filter((item) => item._id !== id)
-      // console.log('found product is : ', foundProduct, '\n index is :', index, '\n new cart items is ', newCartItems)
+    
       if(value === 'inc') {
-        // setCartItems([ { ...foundProduct, quantity: foundProduct.quantity + 1 },...newCartItems ]);
          setCartItems([...newCartItems])
         setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.finalPrice)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
       } else if(value === 'dec') {
         if (foundProduct.quantity > 1) {
-          // setCartItems([ { ...foundProduct, quantity: foundProduct.quantity - 1 }, ...newCartItems ]);
           setCartItems([...newCartItems])
           setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.finalPrice)
           setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)

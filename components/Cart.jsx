@@ -72,7 +72,7 @@ export default function cart(){
                         <p className='line-through text-sm text-[#828282]'>{cartItem.actualPrice}</p>
                         <p className='text-green-700 '>{Math.floor(100-((cartItem.finalPrice/cartItem.actualPrice)*100))}% off</p>
                     </div>
-                    <div onClick={()=> onRemove(cartItem)} className="cart-product-remove flex mt-5 items-center justify-end gap-1">
+                    <div onClick={()=> onRemove(cartItem)} className="cart-product-remove absolute bottom-3 right-5 flex mt-5 items-center justify-end gap-1">
                         <img className='w-6' src='../trash.png' />
                         <button className=' text-slate-600' > Remove </button>
                     </div>

@@ -6,8 +6,7 @@ import { runFireworks } from '@/lib/utils';
 export default ()=>{
      const { setCartItems, setTotalPrice, setTotalQuantities, checkAuth} = useStateContext();
 
-    // const show = checkAuth();
-    // console.log('show is ', show)
+    const show = checkAuth();
 
   
         useEffect(() => {

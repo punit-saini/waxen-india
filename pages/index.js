@@ -17,28 +17,32 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
       <main className='bg-[#fbfbfb]'>
         {/* Categories */}
           <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./vegetables.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"/category/fruits-n-vegetables"}>Fruits & Vegetables</Link>
-              </div>
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./meat.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"/category/groceries"}>Groceries</Link>
-              </div>
+              <Link href={"/category/fruits-n-vegetables"} className="category-card w-32 flex flex-col gap-1 pr-1">
+                  <img className='w-16 h-12 rounded-lg' src="./vegetables.png" />
+                  <p className="text-[12px] leading-none font-semibold" >Vegetables</p>                    
+              </Link>
+              <Link href={"/category/groceries"} className="category-card w-32 flex flex-col gap-1 pr-1">
+                   <img className='w-16 h-12 rounded-lg' src="./groceries.png" />
+                  <p className="text-[12px] leading-none font-semibold" >Groceries</p>
+              </Link>
               
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./dairy.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"/category/dairy"}>Dairy Products</Link>
-              </div>
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./drinks.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"/category/drinks-n-beverages"}>Drink & Beverages</Link>
-              </div>
+              <Link href={"/category/dairy"} className="category-card w-32 flex flex-col gap-1 pr-1">
+           
+                  <img className='w-16 h-12 rounded-lg' src="./dairy.png" />
+                  <p className="text-[12px] leading-none font-semibold" >Dairy</p>
+      
+              </Link>
+              <Link href={"/category/drinks-n-beverages"} className="category-card w-32 flex flex-col gap-1 pr-1">
+             
+                  <img className='w-16 h-12 rounded-lg' src="./beverages.png" />
+                  <p className="text-[12px] leading-none font-semibold" >Beverages</p>
+             
+              </Link>
               
-              <div className="category-card w-32 flex flex-col pr-1">
-                  <img className='w-16 h-8 rounded-lg' src="./dairy.png" />
-                  <Link className="text-[12px] leading-none font-semibold" href={"/category/services"}>Services</Link>
-              </div>
+              <Link  href={"/category/services"} className="category-card w-32 flex flex-col gap-1 pr-1">
+                  <img className='w-16 h-12 rounded-lg' src="./services.png" />
+                  <p className="text-[12px] leading-none font-semibold" >Services</p>
+              </Link>
             
           </div>
 

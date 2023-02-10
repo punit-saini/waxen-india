@@ -35,8 +35,8 @@ import { urlFor } from '@/lib/client';
         </div>
 
         <div className='product-detail-body w-11/12 mx-auto'>
-                <div className='discount-n-star flex justify-between mt-3'>
-                   <p className=' bg-red-600 rounded-2xl text-white px-2 py-1'>{Math.floor(100-((finalPrice/actualPrice)*100))}% off</p>
+                <div className='discount-n-star flex justify-between  items-center mt-3'>
+                   <h2 className=' bg-red-600 rounded-2xl text-white px-3 py-1'>{Math.floor(100-((finalPrice/actualPrice)*100))}% off</h2>
                    <img src='../Star.png' />
                 </div>
                 <div className='price-n-addToCart flex mt-3 justify-between flex-grow-0'>
@@ -68,7 +68,7 @@ import { urlFor } from '@/lib/client';
 
               <div className='image-n-userName flex gap-3 align-middle'>
                     <img className=' w-6' src='../user.webp.webp' />
-                    <p className='pt-1'>Fateh</p>
+                    <p className='pt-1'>Reviewer Name</p>
               </div>
               <div className='stars flex mt-2 gap-1'>
                     <img src='../star-filled.png' />
@@ -77,9 +77,9 @@ import { urlFor } from '@/lib/client';
                     <img src='../star-empty.png' />
                     <img src='../star-empty.png' />
               </div>
-              <h2 className=' font-bold mt-2 text-[#222720]'>An unbiased look at the Kodak Tv</h2>
-              <p className=' text-[#8a8a8e] text-sm'> Reviewd on 29 December 2022</p>
-              <p className='review detail text-gray-500 border-b-2 border-gray-200 pb-2 leading-tight mt-2'>I recently purchased the Kodak TV from Amazon and overall, my experience has been satisfactory. The picture quality is good and the streaming capabilities are convenient. The user interface is easy to navigate, although it did take me a little bit of time to get used to settle there.</p>
+              <h2 className=' font-bold mt-2 text-[#222720]'>Review Title</h2>
+              <p className=' text-[#8a8a8e] text-sm'> Reviewd Date</p>
+              <p className='review detail text-gray-500 border-b-2 border-gray-200 pb-2 leading-tight mt-2'> Review Detail. ----------- I recently purchased the Kodak TV from Amazon and overall, my experience has been satisfactory. The picture quality is good and the streaming capabilities are convenient. The user interface is easy to navigate, although it did take me a little bit of time to get used to settle there.</p>
             </div>
         </div>}
 
