@@ -6,13 +6,14 @@ import { urlFor } from '../lib/client';
 import { useState } from 'react';
 
 
+
 import { useStateContext } from '../context/StateContext';
 
 export default function cart(){
   const cartRef = useRef();
   const { totalPrice, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 
-
+  
     const inputStyle = 'py-1 px-2 border-1 border-black rounded drop-shadow-sm'
     const labelStyle = 'font-bold'
     const [showPlaceOrder, setShowPlaceOrder] = useState(false)
