@@ -11,7 +11,7 @@ export default async function addOrder(req, res) {
       console.log(req.body)
       const order = await Orders.create(req.body);
       console.log('CREATED DOCUMENT');
-      res.redirect(200, '/orderCompleted')
+        res.redirect(200, '/')
     } catch (error) {
       console.log(error);
       res.redirect('/failed')
