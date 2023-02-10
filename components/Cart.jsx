@@ -102,7 +102,7 @@ export default function cart(){
               </div>
            </div> }
        { cartItems.length>=1 && !showPlaceOrder && <div className="checkout-btn pt-4 pb-10 w-11/12 mx-auto text-center">
-           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#'}>Checkout</Link>
+           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#checkout'}>Checkout</Link>
            </div>} 
 
 
@@ -111,7 +111,7 @@ export default function cart(){
 
 
           { showPlaceOrder && <>
-            <form  className='mb-6 pt-10' action="/api/db/add" autoComplete='off' method="post">
+            <form id='checkout'  className='mb-6 pt-10' action="/api/db/add" autoComplete='off' method="post">
                 <div id='delivery-detail' className="user-detail w-11/12 mx-auto my-12 flex flex-col gap-2">
                   <h2 className='font-bold text-xl'>Delivery Details</h2>
                   <div className="username my-6 flex flex-col gap-1">
