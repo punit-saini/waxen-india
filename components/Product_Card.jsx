@@ -36,7 +36,7 @@ const productCard = ({productsData})=> {
             <div className="card-head">
                <div className="product-img w-full rounded mx-auto px-2 py-2 my-1 bg-[#ebebeb] flex justify-center">
                 <Link href={`/product/${product.slug.current}`}>
-                <img src={urlFor(product.image[0])}  className="rounded h-28 w-5/6" />
+                <img alt='product-banner' src={urlFor(product.image[0])}  className="rounded h-28 w-5/6" />
                 </Link>
             </div>
 
@@ -58,7 +58,7 @@ const productCard = ({productsData})=> {
                             <img className='w-4 h-4' src='../star-rating.png' />
                     </div>} */}
             <div className=' absolute bottom-0 right-2'>
-               <button className=" text-white w-6 "><img className="rounded" onClick={() => adder(product,1)} src={`../add.png`} /></button>
+               <button className=" text-white w-6 "><img alt='add' className="rounded" onClick={() => adder(product,1)} src={`../add.png`} /></button>
             </div>
 
             {/* </div> */}

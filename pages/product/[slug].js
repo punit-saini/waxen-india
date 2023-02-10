@@ -5,6 +5,7 @@ import { client } from '@/lib/client';
 import { urlFor } from '@/lib/client';
 
 
+
  
   export default function slug({data}){
          const {fullName, finalPrice, actualPrice, image, qtyUnit, description} = data
@@ -18,16 +19,17 @@ import { urlFor } from '@/lib/client';
         <div>
 
           <div className="image-container w-11/12 rounded-lg h-80 bg-[#ebebeb]  mx-auto flex flex-col">
-            <img src={urlFor(image[index])} className=" max-h-[90%] product-detail-image max-w-[91%]  min-w-[70%] mx-auto my-auto" />
+            <img alt='banner-image-home' src={urlFor(image[index])} className=" max-h-[90%] product-detail-image max-w-[91%]  min-w-[70%] mx-auto my-auto" />
           </div>
 
           <div className="small-images-container w-11/12 mx-auto">
-            {image?.map((img,i) => (
+            {image?.map((Image,i) => (
               <img 
                 key={i}
-                src={urlFor(img)}
+                src={urlFor(Image)}
                 className={i == index ? 'small-image selected-image' : 'small-image'}
-                onMouseEnter={() => setIndex(i)}
+                onMouseEnter={() => setIndex(i)} 
+                alt='banner-image-small'
               />
             ))}
           </div>
@@ -37,7 +39,7 @@ import { urlFor } from '@/lib/client';
         <div className='product-detail-body w-11/12 mx-auto'>
                 <div className='discount-n-star flex justify-between  items-center mt-3'>
                    <h2 className=' bg-red-600 rounded-2xl text-white px-3 py-1'>{Math.floor(100-((finalPrice/actualPrice)*100))}% off</h2>
-                   <img src='../Star.png' />
+                   <img alt='star' src='../Star.png' />
                 </div>
                 <div className='price-n-addToCart flex mt-3 justify-between flex-grow-0'>
                     <h2 className='price font-bold text-2xl'>₹ {finalPrice} <span className=' text-xs text-[#8a8a8e] font-light'>{qtyUnit}</span></h2>
@@ -67,15 +69,15 @@ import { urlFor } from '@/lib/client';
             <div className='review-card'>
 
               <div className='image-n-userName flex gap-3 align-middle'>
-                    <img className=' w-6' src='../user.webp.webp' />
+                    <img alt='user-icon' className=' w-6' src='../user.webp.webp' />
                     <p className='pt-1'>Reviewer Name</p>
               </div>
               <div className='stars flex mt-2 gap-1'>
-                    <img src='../star-filled.png' />
-                    <img src='../star-filled.png' />
-                    <img src='../star-filled.png' />
-                    <img src='../star-empty.png' />
-                    <img src='../star-empty.png' />
+                    <img alt='star' src='../star-filled.png' />
+                    <img alt='star' src='../star-filled.png' />
+                    <img alt='star' src='../star-filled.png' />
+                    <img alt='star' src='../star-empty.png' />
+                    <img alt='star' src='../star-empty.png' />
               </div>
               <h2 className=' font-bold mt-2 text-[#222720]'>Review Title</h2>
               <p className=' text-[#8a8a8e] text-sm'> Reviewd Date</p>

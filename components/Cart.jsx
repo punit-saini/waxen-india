@@ -24,7 +24,7 @@ export default function cart(){
 
 
       <div className="cart-container min-h-screen bg-gray-100 " ref={cartRef}>
-        <img src='../back.png' onClick={()=> setShowCart(false)} className=' w-12 relative left-2 top-4 drop-shadow-lg' />
+        <img alt='cancel-btn' src='../back.png' onClick={()=> setShowCart(false)} className=' w-12 relative left-2 top-4 drop-shadow-lg' />
        {/* { cartItems.length>=1 && <h1>{cartItems[0].shortName}</h1>} */}
         {cartItems.length < 1 && (
           <div className="empty-cart mx-auto text-center text-2xl pt-24">
@@ -49,8 +49,8 @@ export default function cart(){
                 // {console.log('cart item name is ', cartItem.shortName)}
             return (
           <div className="cart-product flex gap-5 bg-gray-50 drop-shadow-md rounded py-2 mb-8 px-2"  >
-                <div className="cart-product-imageNqty w-1/3 flex flex-col gap-2 justify-center">
-                        <img src={urlFor(cartItem.image[0])} className='  max-h-28' />
+                <div className="cart-product-imgNqty w-1/3 flex flex-col gap-2 justify-center">
+                        <img alt='cart-img' src={urlFor(cartItem.image[0])} className='  max-h-28' />
                         <div className='addToCart flex justify-end gap-1'>
                             <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'dec') } className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>-</button>
                             <button className='px-2 font-bold rounded-lg text-l bg-white border-2 border-[#828282]'>{cartItem.quantity}</button>
@@ -63,7 +63,7 @@ export default function cart(){
                     <div className="cart-product-ratings flex gap-1">
                         <div className="rating-card px-2 bg-green-700 rounded text-white flex gap-1 items-center">
                             <p>4.2</p>
-                            <img className='w-4 h-4' src='../star-rating.png' />
+                            <img alt='rating' className='w-4 h-4' src='../star-rating.png' />
                         </div>
                         <p className=' font-semibold text-slate-600 text-sm'>(12)</p>
                     </div>
@@ -73,7 +73,7 @@ export default function cart(){
                         <p className='text-green-700 '>{Math.floor(100-((cartItem.finalPrice/cartItem.actualPrice)*100))}% off</p>
                     </div>
                     <div onClick={()=> onRemove(cartItem)} className="cart-product-remove absolute bottom-3 right-5 flex mt-5 items-center justify-end gap-1">
-                        <img className='w-6' src='../trash.png' />
+                        <img alt='trash-icon' className='w-6' src='../trash.png' />
                         <button className=' text-slate-600' > Remove </button>
                     </div>
                 </div>

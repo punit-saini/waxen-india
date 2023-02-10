@@ -9,6 +9,7 @@ import Product_Card from '@/components/Product_Card'
 import { client } from '../lib/client';
 
 
+
 export default  function Home({popularDeals, drinksNBeverages, dairy , grocery}) {
 
   return (
@@ -18,29 +19,29 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
         {/* Categories */}
           <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
               <Link href={"/category/fruits-n-vegetables"} className="category-card w-32 flex flex-col gap-1 pr-1">
-                  <img className='w-16 h-12 rounded-lg' src="./vegetables.png" />
+                  <img alt='vegetables' className='w-16 h-12 rounded-lg' src="./vegetables.png" />
                   <p className="text-[12px] leading-none font-semibold" >Vegetables</p>                    
               </Link>
               <Link href={"/category/groceries"} className="category-card w-32 flex flex-col gap-1 pr-1">
-                   <img className='w-16 h-12 rounded-lg' src="./groceries.png" />
+                   <img alt='groceries' className='w-16 h-12 rounded-lg' src="./groceries.png" />
                   <p className="text-[12px] leading-none font-semibold" >Groceries</p>
               </Link>
               
               <Link href={"/category/dairy"} className="category-card w-32 flex flex-col gap-1 pr-1">
            
-                  <img className='w-16 h-12 rounded-lg' src="./dairy.png" />
+                  <img alt='dairy' className='w-16 h-12 rounded-lg' src="./dairy.png" />
                   <p className="text-[12px] leading-none font-semibold" >Dairy</p>
       
               </Link>
               <Link href={"/category/drinks-n-beverages"} className="category-card w-32 flex flex-col gap-1 pr-1">
              
-                  <img className='w-16 h-12 rounded-lg' src="./beverages.png" />
+                  <img alt='beverages' className='w-16 h-12 rounded-lg' src="./beverages.png" />
                   <p className="text-[12px] leading-none font-semibold" >Beverages</p>
              
               </Link>
               
               <Link  href={"/category/services"} className="category-card w-32 flex flex-col gap-1 pr-1">
-                  <img className='w-16 h-12 rounded-lg' src="./services.png" />
+                  <img alt='services' className='w-16 h-12 rounded-lg' src="./services.png" />
                   <p className="text-[12px] leading-none font-semibold" >Services</p>
               </Link>
             
@@ -48,7 +49,7 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
 
              {/* Carousel */}
              
-             <Link href={"#"}><img className=' mt-5 w-11/12 mx-auto h-40 rounded-xl drop-shadow-xl' src="./banner.png" /></Link> 
+             <Link href={"#"}><img alt='banner' className=' mt-5 w-11/12 mx-auto h-40 rounded-xl drop-shadow-xl' src="./banner.png" /></Link> 
 
              {/* Trending products */}
 
