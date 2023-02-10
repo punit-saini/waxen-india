@@ -23,8 +23,7 @@ export default function cart(){
    
   return (
 
-
-      <div className="cart-container min-h-screen bg-gray-100 " ref={cartRef}>
+      <div className="cart-container min-h-screen bg-gray-100" ref={cartRef}>
         <img alt='cancel-btn' src='../back.png' onClick={()=> setShowCart(false)} className=' w-12 relative left-2 top-4 drop-shadow-lg' />
        {/* { cartItems.length>=1 && <h1>{cartItems[0].shortName}</h1>} */}
         {cartItems.length < 1 && (
@@ -51,7 +50,7 @@ export default function cart(){
             return (
           <div className="cart-product flex gap-5 bg-gray-50 drop-shadow-md rounded py-2 mb-8 px-2"  >
                 <div className="cart-product-imgNqty w-1/3 flex flex-col gap-2 justify-center">
-                        <img alt='cart-img' src={urlFor(cartItem.image[0])} className='  max-h-28' />
+                        <img alt='cart-img' src={urlFor(cartItem.image[0])} className='h-24' />
                         <div className='addToCart flex justify-end gap-1'>
                             <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'dec') } className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>-</button>
                             <button className='px-2 font-bold rounded-lg text-l bg-white border-2 border-[#828282]'>{cartItem.quantity}</button>
@@ -68,7 +67,7 @@ export default function cart(){
                         </div>
                         <p className=' font-semibold text-slate-600 text-sm'>(12)</p>
                     </div>
-                    <div className="cart-product-price flex mt-3 gap-2 items-center">
+                    <div className="cart-product-price flex mt-1 gap-2 items-center">
                         <h2 className=' font-bold text-lg'>{cartItem.finalPrice}</h2>
                         <p className='line-through text-sm text-[#828282]'>{cartItem.actualPrice}</p>
                         <p className='text-green-700 '>{Math.floor(100-((cartItem.finalPrice/cartItem.actualPrice)*100))}% off</p>
@@ -102,8 +101,8 @@ export default function cart(){
 
               </div>
            </div> }
-       { cartItems.length>=1 && !showPlaceOrder && <div className="checkout-btn w-11/12 mx-auto text-center">
-           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3 bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#'}>Checkout</Link>
+       { cartItems.length>=1 && !showPlaceOrder && <div className="checkout-btn pt-4 pb-10 w-11/12 mx-auto text-center">
+           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#'}>Checkout</Link>
            </div>} 
 
 
@@ -112,16 +111,16 @@ export default function cart(){
 
 
           { showPlaceOrder && <>
-            <form action="/api/db/add" autoComplete='off' method="post">
+            <form  className='mb-6 pt-10' action="/api/db/add" autoComplete='off' method="post">
                 <div id='delivery-detail' className="user-detail w-11/12 mx-auto my-12 flex flex-col gap-2">
                   <h2 className='font-bold text-xl'>Delivery Details</h2>
                   <div className="username my-6 flex flex-col gap-1">
                     <label className={labelStyle} htmlFor="name" >Full name</label>
-                    <input className={inputStyle} type="text" name="name" id="" />
+                    <input required className={inputStyle} type="text" name="name" id="" />
                   </div>
                   <div className="contact flex flex-col gap-1">
                     <label className={labelStyle} htmlFor="number" >Mobile number</label>
-                    <input className={inputStyle} type="tel" name="number" id="" />
+                    <input required className={inputStyle} type="tel" name="number" id="" />
                   </div>
                   <div className="address-pincode flex flex-col gap-1 my-2">
                     <label className={labelStyle} htmlFor="pincode" >Pincode</label>
@@ -130,11 +129,11 @@ export default function cart(){
                   </div>
                   <div className="address-house flex flex-col gap-1">
                     <label className={labelStyle} htmlFor="house" >Flat, House no., Apartment</label>
-                    <input className={inputStyle} type="text" name="house" id="" />
+                    <input required className={inputStyle} type="text" name="house" id="" />
                   </div>
                   <div className="address-area flex flex-col gap-1">
                     <label className={labelStyle} htmlFor="area" >Area, Street, Sector</label>
-                    <input className={inputStyle} type="text" name="area" id="" />
+                    <input required className={inputStyle} type="text" name="area" id="" />
                   </div>
 
 
