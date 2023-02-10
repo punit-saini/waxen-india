@@ -4,7 +4,7 @@ import { client } from '@/lib/client';
 import Product_Card from '@/components/Product_Card'
 
 
-export default function({drinksNBeverages}){
+export default function DnB({drinksNBeverages}){
     return (
         <>
 

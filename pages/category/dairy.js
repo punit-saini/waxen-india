@@ -4,7 +4,7 @@ import { client } from '@/lib/client';
 import Product_Card from '@/components/Product_Card'
 
 
-export default function({dairy}){
+export default function dairy({dairy}){
     return (
       <>
         {console.log(dairy.length)}

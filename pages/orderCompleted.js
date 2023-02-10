@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useStateContext } from '@/context/StateContext';
 import { runFireworks } from '@/lib/utils';
 
-export default ()=>{
+export default function orderCOmple(){
      const { setCartItems, setTotalPrice, setTotalQuantities, checkAuth} = useStateContext();
 
     const show = checkAuth();

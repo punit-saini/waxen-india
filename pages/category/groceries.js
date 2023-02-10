@@ -4,7 +4,7 @@ import { client } from '@/lib/client';
 import Product_Card from '@/components/Product_Card'
 
 
-export default function({grocery}){
+export default function gro({grocery}){
     return (
 
         <>

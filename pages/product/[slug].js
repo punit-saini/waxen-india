@@ -6,7 +6,7 @@ import { urlFor } from '@/lib/client';
 
 
  
-  export default function({data}){
+  export default function slug({data}){
          const {fullName, finalPrice, actualPrice, image, qtyUnit, description} = data
   const [index, setIndex] = useState(0)
   const { isDesc, setIsDesc,adder, qty, incQty, decQty, setShowCart } = useStateContext();
