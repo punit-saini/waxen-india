@@ -18,8 +18,8 @@ export const StateContext = ({children}) => {
 
 
     useEffect(() => {
-      const localCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-      const localTotalPrice = parseFloat(localStorage.getItem('totalPrice') || '0');
+      const localCartItems = JSON.parse(sessionStorage.getItem('cartItems') || '[]');
+      const localTotalPrice = parseFloat(sessionStorage.getItem('totalPrice') || '0');
       if(localCartItems) setCartItems(localCartItems);
       if(localTotalPrice) setTotalPrice(localTotalPrice);
     
@@ -32,8 +32,8 @@ export const StateContext = ({children}) => {
 
     useEffect(() => {
       if (cartItems?.length) {
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      localStorage.setItem('totalPrice', totalPrice.toString());}
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+      sessionStorage.setItem('totalPrice', totalPrice.toString());}
     }, [cartItems, totalPrice]);
   
 

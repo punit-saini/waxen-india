@@ -5,6 +5,12 @@ export default {
       title: 'Product',
     fields: [
       {
+        name: 'shortName',
+        type: 'string',
+        title: 'ShortName',
+        validation: Rule => Rule.required()
+      },
+      {
           title: 'Category',
           name: 'category',
           type: 'string',
@@ -34,12 +40,6 @@ export default {
         },
         validation: Rule => Rule.required()
 
-      },
-      {
-        name: 'shortName',
-        type: 'string',
-        title: 'ShortName',
-        validation: Rule => Rule.required()
       },
       {
         name : 'fullName',
