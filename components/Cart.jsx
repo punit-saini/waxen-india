@@ -136,10 +136,10 @@ export default function cart(){
                     <input required className={inputStyle} type="text" name="area" id="" />
                   </div>
 
-
+   
                     
               </div>
-                <input className='hidden' type="text" name="orderItems" value={productString}  />
+                <input className='hidden w-0' type="text" name="orderItems" value={productString}  />
                 <input className='hidden' type="text" name="totalPrice" value={totalPrice} />
                 <input className='hidden' type="text" name="" value={''} />
 
