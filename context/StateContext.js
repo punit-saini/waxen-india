@@ -1,13 +1,28 @@
 import product from '@/sanity/schemas/product';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import connectMongo from "@/utils/connectMongo";
+import mongoose from 'mongoose';
+import { signIn, useSession } from 'next-auth/react';
 
 const Context = createContext();
 
 export const StateContext = ({children}) => {
+
+    // Session 
+    
+
+     function sessionChecker(){
+      const session = useSession();
+      if(session==null){
+        return null
+      }
+      else {
+        return session
+      }
+    }
       
   
-    const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
@@ -141,15 +156,25 @@ export const StateContext = ({children}) => {
     }
 
 
+  // Database 
 
+  try {
+    mongoose.set('strictQuery', false);
+    connectMongo();
+    console.log("Connected To Mongo");
+  } catch (error) {
+    console.log(error)
+  }
+
+
+
+ 
 
 
 
   return (                                     
     <Context.Provider
       value={{
-        showCart,
-        setShowCart,
         cartItems,
         setCartItems,
         isDesc,
@@ -168,7 +193,8 @@ export const StateContext = ({children}) => {
         query,
         setQuery,
         imagevar,
-        setImageVar
+        setImageVar,
+        sessionChecker,
       }}
     >
       {children}

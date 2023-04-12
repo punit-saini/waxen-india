@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "@next/font": "13.1.6",
     "@sanity/client": "^4.0.1",
     "@sanity/image-url": "^1.0.2",
@@ -16,8 +17,10 @@
     "canvas-confetti": "^1.6.0",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "mongodb": "^4.15.0",
     "mongoose": "^6.9.1",
     "next": "13.1.6",
+    "next-auth": "^4.21.1",
     "next-sanity": "^4.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

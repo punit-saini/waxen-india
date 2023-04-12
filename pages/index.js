@@ -3,6 +3,7 @@ import { Inter } from '@next/font/google'
 import React from 'react'
 const inter = Inter({ subsets: ['latin'] })
 import Link from 'next/link'
+import { useSession, getSession} from 'next-auth/react'
 // import imageUrlBuilder from '@sanity/image-url'
 import Product_Card from '@/components/Product_Card'
 // import product from '@/sanity/schemas/product';
@@ -11,7 +12,8 @@ import { client } from '../lib/client';
 
 
 export default  function Home({popularDeals, drinksNBeverages, dairy , grocery}) {
-
+        const session=getSession()
+        console.log('session is :', session);
   return (
     <>
 
@@ -20,7 +22,7 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
           <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
               <Link href={"/category/fruits-n-vegetables"} className="category-card w-32 flex flex-col gap-1 pr-1">
                   <img alt='vegetables' className='w-16 h-12 rounded-lg' src="./vegetables.png" />
-                  <p className="text-[12px] leading-none font-semibold" >Vegetables</p>                    
+                  <p className="text-[12px] leading-none font-semibold" >Vegggetables</p>                    
               </Link>
               <Link href={"/category/groceries"} className="category-card w-32 flex flex-col gap-1 pr-1">
                    <img alt='groceries' className='w-16 h-12 rounded-lg' src="./groceries.png" />
@@ -120,7 +122,7 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
 
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     
     const popularDeals = await client.fetch(`*[_type == "product" && ('popular' in tags)]`);
     const drinksNBeverages = await client.fetch(`*[_type == "product" && category == "drinks-n-beverages"]`);

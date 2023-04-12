@@ -1,17 +1,33 @@
 import react, {useState} from 'react'
+import Users from '@/models/User';
 import Link from 'next/link'
 import { useStateContext } from '../../context/StateContext';
 import { client } from '@/lib/client';
 import { urlFor } from '@/lib/client';
+import review from '@/sanity/schemas/review';
+import { useSession, getSession, signIn } from 'next-auth/react';
 
 
 
  
-  export default function slug({data}){
-         const {fullName, finalPrice, actualPrice, image, qtyUnit, description} = data
+  export default function slug({data, reviewsData}){
+    const session=useSession();
+         const {fullName, finalPrice, actualPrice, image, qtyUnit, description, _id} = data
   const [index, setIndex] = useState(0)
-  const { isDesc, setIsDesc,adder, qty, incQty, decQty, setShowCart } = useStateContext();
+  const { isDesc, setIsDesc,adder, qty, incQty, decQty, setShowCart, } = useStateContext();
+  // submitReview({
+  //   product_id : data._id, 
+  //   text : 'This product is amazing!',
+  //   rating: 5,
+  //   author: 'John Doe'
+  // })
 
+  // Favorite Adder 
+  async function favoriteAdder(){
+    const currentUser = Users.findOne({email : session.data.email});
+    console.log('current user is : ', currentUser);
+  }
+   
   return (
     <div className="">
        <h1 className=' stick mt-3 mb-1 w-11/12 mx-auto text-sm font-semibold'>{fullName}</h1>
@@ -39,7 +55,7 @@ import { urlFor } from '@/lib/client';
         <div className='product-detail-body w-11/12 mx-auto'>
                 <div className='discount-n-star flex justify-between  items-center mt-3'>
                    <h2 className=' bg-red-600 rounded-2xl text-white px-3 py-1'>{Math.floor(100-((finalPrice/actualPrice)*100))}% off</h2>
-                   <img alt='star' src='../Star.png' />
+                   <img className=' cursor-pointer' onClick={()=>{ favoriteAdder()}} alt='star' src='../Star.png' />
                 </div>
                 <div className='price-n-addToCart flex mt-3 justify-between flex-grow-0'>
                     <h2 className='price font-bold text-2xl'>₹ {finalPrice} <span className=' text-xs text-[#8a8a8e] font-light'>{qtyUnit}</span></h2>
@@ -54,7 +70,7 @@ import { urlFor } from '@/lib/client';
 
         <div className='cta-btns w-11/12 mx-auto my-5 flex justify-around text-center'>
             <button className='cta-btn rounded-3xl px-3 py-2 drop-shadow-lg hover:drop-shadow-sm font-bold  border-2 bg-white border-[#ffc700] text-[#ffc700] outline' onClick={() =>adder(data, qty)}> Add To Cart</button>
-            <button className='cta-btn rounded-3xl px-3 py-2 drop-shadow-xl hover:drop-shadow-sm font-bold bg-[#ffc700] text-white outline' onClick={()=> {adder(data,qty); setShowCart('true')}}>Buy Now</button>
+            <Link href={'/checkout/cart'} className='cta-btn rounded-3xl px-3 py-2 drop-shadow-xl hover:drop-shadow-sm font-bold bg-[#ffc700] text-white outline' onClick={()=> {adder(data,qty);}}>Buy Now</Link>
         </div>
 
         <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
@@ -66,29 +82,63 @@ import { urlFor } from '@/lib/client';
         </div>}
         
        {!isDesc && <div className='reviews w-11/12 mx-auto my-5'>
-            <div className='review-card'>
-
-              <div className='image-n-userName flex gap-3 align-middle'>
-                    <img alt='user-icon' className=' w-6' src='../user.webp.webp' />
-                    <p className='pt-1'>Reviewer Name</p>
-              </div>
-              <div className='stars flex mt-2 gap-1'>
-                    <img alt='star' src='../star-filled.png' />
-                    <img alt='star' src='../star-filled.png' />
-                    <img alt='star' src='../star-filled.png' />
-                    <img alt='star' src='../star-empty.png' />
-                    <img alt='star' src='../star-empty.png' />
-              </div>
-              <h2 className=' font-bold mt-2 text-[#222720]'>Review Title</h2>
-              <p className=' text-[#8a8a8e] text-sm'> Reviewd Date</p>
-              <p className='review detail text-gray-500 border-b-2 border-gray-200 pb-2 leading-tight mt-2'> Review Detail. ----------- I recently purchased the Kodak TV from Amazon and overall, my experience has been satisfactory. The picture quality is good and the streaming capabilities are convenient. The user interface is easy to navigate, although it did take me a little bit of time to get used to settle there.</p>
-            </div>
+        {reviewsData.length>=1? reviewsData.map(reviewThrower,reviewsData.length): <h1 className=' text-center mt-12'>No reviews yet! 🙄</h1>}
+         
         </div>}
 
     </div>
     
   )
 }
+
+function reviewThrower(review, length){
+   return <>
+            <div className='review-card'>
+                <div className='image-n-userName flex gap-3 align-middle'>
+                      <img alt='user-icon' className=' w-6' src='../user.webp.webp' />
+                      <p className='pt-1'>{review.author}</p>
+                </div>
+                <div className="cart-product-ratings flex gap-1">
+                          <div className="rating-card px-2 bg-green-700 rounded text-white flex gap-1 items-center">
+                              <p>{review.rating}</p>
+                              <img alt='rating' className='w-4 h-4' src='../star-rating.png' />
+                          </div>
+                          <p className=' font-semibold text-slate-600 text-sm'>{length}</p>
+                      </div>
+                <p className=' text-[#8a8a8e] text-sm'>{review._updatedAt.slice(0,10)}</p>
+                <p className='review detail text-gray-500 border-b-2 border-gray-200 pb-2 leading-tight mt-2'>{review.text}</p>
+  
+            </div>
+   </>
+}
+
+// const submitReview = async (reviewData) => {
+//   try {
+//     const result = await client.create({
+//       _type: 'reviews',
+//       ...reviewData
+//     })
+//     console.log('Review submitted successfully!', result)
+//   } catch (error) {
+//     console.error('Error submitting review', error)
+//   }
+// }
+
+// async function favoriteAdder(_id){
+//   const session = getSession();
+//   if(session.data==null){
+//     console.log('insdie here')
+//     return <h1 onClick={signIn}>Sign In</h1>
+//   }
+//   else {
+//     const user = Users.findOne({email : session.user.email})
+//     console.log('user inside state conetxt is : ', user)
+//     user.wishlist.push(_id);
+//     await user.save();
+//   }
+// }
+
+
 
 export async function getStaticPaths(slug) {
   const query = `*[_type == "product"] {
@@ -118,10 +168,15 @@ export async function getStaticProps ({ params: { slug }}) {
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
   
   const product = await client.fetch(query);
+  const reviewQuery = `*[_type == "reviews" && product_id == '${product?._id}']`;
+  const reviews = await client.fetch(reviewQuery);
+  console.log('product._id is : ', product?._id);
   
 
   return {
-    props: {  data : product }
+    props: {  data : product,
+      reviewsData : reviews
+     }
   }
 }
 

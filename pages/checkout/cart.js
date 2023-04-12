@@ -1,42 +1,33 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
+import { useSession,getSession, signIn, signOut} from 'next-auth/react'
 import toast from 'react-hot-toast';
-import { client } from '../lib/client'
-import { urlFor } from '../lib/client';
+import { client } from '@/lib/client';
+import { urlFor } from '@/lib/client';
 import { useState } from 'react';
 
- 
-
-import { useStateContext } from '../context/StateContext';
-
+import { useStateContext } from '@/context/StateContext';
 export default function cart(){
-  const cartRef = useRef();
-  const { totalPrice, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
-
   
-    const inputStyle = 'py-1 px-2 border-1 border-black rounded drop-shadow-sm'
-    const labelStyle = 'font-bold'
-    const [showPlaceOrder, setShowPlaceOrder] = useState(false)
-    console.log('cart items now is : ' + cartItems[0])
- const productString = ` ${cartItems.map((item)=> ` ${item.fullName} (${item.quantity})  ` )}`
- console.log('product string is : \n' + productString)
+  const cartRef = useRef();
+  // const session = useSession();
+  const { totalPrice, cartItems, toggleCartItemQuanitity, onRemove, sessionChecker } = useStateContext();
+  
    
+    const [showPlaceOrder, setShowPlaceOrder] = useState(false)
+ console.log('Cart items are : ', cartItems)
+//  console.log('product string is : \n' + productString)
+ const userData = sessionChecker();
+ 
   return (
 
       <div className="cart-container min-h-screen bg-gray-100" ref={cartRef}>
-        <img alt='cancel-btn' src='../back.png' onClick={()=> setShowCart(false)} className=' w-12 relative left-2 top-4 drop-shadow-lg' />
        {/* { cartItems.length>=1 && <h1>{cartItems[0].shortName}</h1>} */}
         {cartItems.length < 1 && (
           <div className="empty-cart mx-auto text-center text-2xl pt-24">
             <h3>Your shopping bag is empty</h3>
             <Link href="/">
-              <button
-                type="button"
-                onClick={() => setShowCart(false)}
-                className=" rounded-full px-3 py-2 bg-[#ffc700] text-white text-lg mt-6"
-              >
                 Continue Shopping
-              </button>
             </Link>
           </div>
         )}
@@ -102,58 +93,19 @@ export default function cart(){
               </div>
            </div> }
        { cartItems.length>=1 && !showPlaceOrder && <div className="checkout-btn pt-4 pb-10 w-11/12 mx-auto text-center">
-           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#checkout'}>Checkout</Link>
+           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'/checkout/order-details'}>Checkout</Link>
            </div>} 
 
 
 
 {/* ////////////////// */}
 
-
-          { showPlaceOrder && <>
-            <form id='checkout'  className='mb-6 pt-10' action="/api/db/add" autoComplete='off' method="post">
-                <div id='delivery-detail' className="user-detail w-11/12 mx-auto my-12 flex flex-col gap-2">
-                  <h2 className='font-bold text-xl'>Delivery Details</h2>
-                  <div className="username my-6 flex flex-col gap-1">
-                    <label className={labelStyle} htmlFor="name" >Full name</label>
-                    <input required className={inputStyle} type="text" name="name" id="" />
-                  </div>
-                  <div className="contact flex flex-col gap-1">
-                    <label className={labelStyle} htmlFor="number" >Mobile number</label>
-                    <input required className={inputStyle} type="tel" name="number" id="" />
-                  </div>
-                  <div className="address-pincode flex flex-col gap-1 my-2">
-                    <label className={labelStyle} htmlFor="pincode" >Pincode</label>
-                    <input  className={`${inputStyle} w-min`} type="text" value={'132001'} name="pincode" id="" />
-                    <p className=' text-sm font-light text-grey-600'>Currently, we deliver only in Karnal</p>
-                  </div>
-                  <div className="address-house flex flex-col gap-1">
-                    <label className={labelStyle} htmlFor="house" >Flat, House no., Apartment</label>
-                    <input required className={inputStyle} type="text" name="house" id="" />
-                  </div>
-                  <div className="address-area flex flex-col gap-1">
-                    <label className={labelStyle} htmlFor="area" >Area, Street, Sector</label>
-                    <input required className={inputStyle} type="text" name="area" id="" />
-                  </div>
-
-   
-                    
-              </div>
-                <input className='hidden w-0' type="text" name="orderItems" value={productString}  />
-                <input className='hidden' type="text" name="totalPrice" value={totalPrice} />
-                <input className='hidden' type="text" name="" value={''} />
-
-              <div className="place-order-btn pb-24 w-11/12 mx-auto text-center">
-              <button type='submit' className='rounded-full px-6 py-3 bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#delivery-detail'}>Place Order</button>
-              </div>
-           </form>
+{/* session.data==null? <h1>Sign In first</h1>  : */}
+          {  showPlaceOrder &&  <>
            </>}
 
     </div>
   )
 }
-
-
-
 
 
