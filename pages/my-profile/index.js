@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { getSession, signOut} from "next-auth/react";
-import { useStateContext } from "@/context/StateContext";
 
 
 export default function(props){

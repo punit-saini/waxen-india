@@ -10,19 +10,7 @@ const productCard = ({productsData})=> {
                 
        const { adder } = useStateContext();
 
-                // function handleclick(product){
-                //     adder(product,1)
-                //         setImageVar(()=> {
-                //             return ("added")
-                //     })   
-                    
-                //     setInterval(() => {
-                //         setImageVar(()=>{
-                //             return ("add")
-                //         })
-                //     }, 2000);
-                //     return 
-                // }
+             
 
     return (
         
@@ -52,19 +40,12 @@ const productCard = ({productsData})=> {
             </div>
 
             <h2 className="price font-extrabold text-lg text-black">₹ {product.finalPrice} <span className=' line-through text-xs text-[#8a8a8e] ml-1'>₹{product.actualPrice}</span> </h2>
-{/* 
-            <div className={`rating-n-addBtn flex  ${product.rating? 'justify-between' : ' justify-end'} items-center`}>
 
-                { product.rating &&  <div className={`rating-card px-2 ${product.rating >3.5 ?'bg-green-700' : 'bg-yellow-600'} rounded text-white flex gap-1 items-center `}>
-                            <p>{product.rating}</p>
-                            <img className='w-4 h-4' src='../star-rating.png' />
-                    </div>} */}
             <div className=' absolute bottom-0 right-2'>
                <button className=" text-white w-6 "><img alt='add' className="rounded" onClick={() => adder(product,1)} src={`../add.png`} /></button>
             </div>
 
-            {/* </div> */}
-
+         
 
         </div>
                     

@@ -1,19 +1,16 @@
 import React from 'react'
-// import { Cart } from './';
-import { useSession, signIn, signOut} from 'next-auth/react'
+import { useSession, signIn} from 'next-auth/react'
 import { useStateContext} from '../context/StateContext';
-import {  useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { client } from '@/lib/client';
-import Results from './results';
+
 
 
 export default ()=>{
        const { cartItems} = useStateContext(); 
       const router = useRouter();
       const session=useSession()
-      console.log('session is : ', session)
       const [query, setQuery] = useState('');
       const [showResult, setShowResult] = useState(false)
       const [results, setResults]= useState([]);
@@ -21,7 +18,6 @@ export default ()=>{
          event.preventDefault();
          const response = await fetch(`/api/search?q=${query}`)
          const data = await response.json();
-         console.log('yeah! data is : ',data)
          setShowResult(true)
          setResults(data.data);
          router.push({
@@ -60,8 +56,7 @@ export default ()=>{
                   </button>
              </form>
         </div>
-        {/* {showResult && < Results data={results} />} */}
-        {/* {showCart && <Cart />} */}
+       
         </>
      )
 }

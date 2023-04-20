@@ -12,6 +12,6 @@ export default ()=>{
           </ul>
        </nav>
        <p className="text-sm">Developed & Maintained By <a target={"_blank"} href="https://instagram.com/punit_not_puneet" className=" text-gray-500 underline">Punit Kumar Saini</a></p>
-       <p className="text-sm"> &copy; 2022-{Date().slice(11,15)}, Waxen-India.com, Inc </p>
+       <p className="text-sm"> &copy; 2023-{Date().slice(11,15)}, Waxen-India.com, Inc </p>
     </footer>)
 }

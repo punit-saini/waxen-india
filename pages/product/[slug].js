@@ -1,12 +1,10 @@
 import react, {useState, useEffect} from 'react'
-import Users from '@/models/User';
 import Link from 'next/link'
 import { useStateContext } from '../../context/StateContext';
 import { client } from '@/lib/client';
 import { urlFor } from '@/lib/client';
 import { toast } from 'react-hot-toast';
-import { getSession } from 'next-auth/react';
-import user from '@/sanity/schemas/user';
+
 
 
  
@@ -52,7 +50,6 @@ import user from '@/sanity/schemas/user';
                    <div>
                        <input className='hidden' type='text' name='productId' value={_id}/>
                        <input className='hidden' type='text' name='userId' value={sessionChecker().data?.user.email}/>
-                       {/* {console.log('session checker output is : ', sessionChecker())}; */}
                        <button onClick={handleClick}><img className=' cursor-pointer' alt='star' src='../Star.png' /></button>
                     </div>
                    </form>
@@ -61,7 +58,6 @@ import user from '@/sanity/schemas/user';
                     <h2 className='price font-bold text-2xl'>₹ {finalPrice} <span className=' text-xs text-[#8a8a8e] font-light'>{qtyUnit}</span></h2>
                     <div className='addToCart flex justify-end gap-1'>
                        <button onClick={decQty} className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>-</button>
-                       {/* <p className='px-2 font-bold rounded-lg text-xl bg-white border-2 border-[#828282] w-8'>{qty}</p> */}
                        <button className='px-2 font-bold rounded-lg text-l bg-white border-2 border-[#828282]'>{qty}</button>
                        <button onClick={incQty} className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>+</button>
                     </div>
@@ -73,18 +69,10 @@ import user from '@/sanity/schemas/user';
             <Link href={'/checkout/cart'} className='cta-btn rounded-3xl px-3 py-2 drop-shadow-xl hover:drop-shadow-sm font-bold bg-[#ffc700] text-white outline' onClick={()=> {adder(data,qty);}}>Buy Now</Link>
         </div>
 
-        {/* <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
-             <button className={` py-1 w-4/5`}>Description</button>
-        </div> */}
-        {/* <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
-          <button className={`py-1 w-4/5 text-sm animate-pulse`} style={{backgroundImage: 'linear-gradient(to right, #4dc0b5 , #4cb8b0, #4baea8, #4aa49f, #489a97)'}}>Description</button>
-        </div> */}
+    
         <h2 class="text-gray-800 text-2xl font-bold mb-4 w-11/12 mx-auto">Description</h2>
 
 
-        {/* <div className='description w-11/12 mx-auto my-5'>
-             <p className='text-[#8a8a8e] text-justify'>{description}</p>
-        </div> */}
         <div class="p-6 bg-gray-100 rounded-lg">
           <p class="text-lg font-medium text-gray-800 leading-relaxed">
             {description}
@@ -132,7 +120,6 @@ export async function getStaticProps ({ params: { slug }}) {
   const product = await client.fetch(query);
   const reviewQuery = `*[_type == "reviews" && product_id == '${product?._id}']`;
   const reviews = await client.fetch(reviewQuery);
-  console.log('product._id is : ', product?._id);
   
 
   return {

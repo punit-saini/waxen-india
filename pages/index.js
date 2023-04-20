@@ -3,17 +3,14 @@ import { Inter } from '@next/font/google'
 import React from 'react'
 const inter = Inter({ subsets: ['latin'] })
 import Link from 'next/link'
-import { useSession, getSession} from 'next-auth/react'
-import Image from 'next/image'
-import imageUrlBuilder from '@sanity/image-url'
+import { getSession} from 'next-auth/react'
 import Product_Card from '@/components/Product_Card'
-// import product from '@/sanity/schemas/product';
 import { urlFor } from '../lib/client'
 import { client } from '../lib/client';
 
 
 
-export default  function Home({popularDeals, drinksNBeverages, dairy , grocery, bannerImage}) {
+export default  function Home({popularDeals, drinksNBeverages, grocery, bannerImage}) {
         const session=getSession()
         console.log('session is :', session);
   return (
@@ -57,11 +54,8 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery, 
           
           <marquee class="bg-gray-100 py-2 mt-2 px-4 rounded-lg shadow-lg">
             <Link href={'/category/alkaline-water/'}>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-4 text-yellow-400" viewBox="0 0 20 20">
-                  <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM7 10a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm5-3a1 1 0 011 1v4a1 1 0 11-2 0V8a1 1 0 011-1zM8.37 5.37a1 1 0 011.42 0l2.12 2.12a1 1 0 01-1.42 1.42L9 7.41V13a1 1 0 11-2 0V7.41l-.47.47a1 1 0 11-1.42-1.42l2.12-2.12z"/>
-                </svg>
                 <span class="inline-block font-medium text-gray-800 leading-6">
-                  Checkout Alkaline Water Products for Improved Family Health
+                   👉 Checkout Alkaline Water Products
                 </span>
             </Link>
           </marquee>
@@ -107,13 +101,13 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery, 
            {/* Dairy Products */}
 
            <div className='popular-deals flex justify-between font-Nunito w-11/12 mx-auto my-8 text-lg px-1'>
-                 <h2 className=' text-xl font-bold'>Electronics</h2>
-                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"/category/dairy"}>View All</Link>
+                 <h2 className=' text-xl font-bold'>Groceries</h2>
+                 <Link className=' text-[#ffc700] underline cursor-pointer' href={"/category/groceries"}>View All</Link>
             </div>
 
                     {/* Product Card */}
                     <div className='card-container mb-3 flex justify-between  flex-wrap'>
-                          <Product_Card productsData={dairy} />
+                          <Product_Card productsData={grocery} />
                     
                     </div>
           
@@ -141,9 +135,9 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery, 
 
             
             {/* contact */}
-           <div>
+           <div className=' bg-transparent'>
            <Link className=' fixed bottom-12 bg-transparent right-3 md:hidden' href="https://wa.me/+919034422377">
-                 <img className='shadow-lg rounded-full w-14 h-14 bg-transparent transition-all duration-300 ease-in-out z-50' src='../whatsapp.png' />
+                 <img className='shadow-lg  w-14 h-14 bg-transparent transition-all duration-300 ease-in-out z-50' src='../whatsapp.png' />
             </Link>
            </div>
             
@@ -174,7 +168,6 @@ export async function getServerSideProps() {
     const dairy = await client.fetch(`*[_type == "product" && category == "electronic"][0...3]`)
     const grocery = await client.fetch(`*[_type == "product" && category == "grocery"][0...3]`)
     const bannerImage = await client.fetch(`*[_type == "banner"]`)
-    console.log('banner image is ', bannerImage[0].image)
 
     return {
       props: {

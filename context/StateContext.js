@@ -30,28 +30,37 @@ export const StateContext = ({children}) => {
     const [isDesc, setIsDesc] = useState(true);
     const [query, setQuery] = useState('');
     const [imagevar, setImageVar]=useState("add");
-    const [showMessage, setShowMessage]= useState(false)
-    const [messageText, setMessageText]=useState('');
-
-
-    useEffect(() => {
-      const localCartItems = JSON.parse(sessionStorage.getItem('cartItems') || '[]');
-      const localTotalPrice = parseFloat(sessionStorage.getItem('totalPrice') || '0');
-      if(localCartItems) setCartItems(localCartItems);
-      if(localTotalPrice) setTotalPrice(localTotalPrice);
     
-    }, []);
+
+
+    // useEffect(() => {
+    //   const localCartItems = JSON.parse(sessionStorage.getItem('cartItems') || '[]');
+    //   const localTotalPrice = parseFloat(sessionStorage.getItem('totalPrice') || '0');
+    //   if(localCartItems) setCartItems(localCartItems);
+    //   if(localTotalPrice) setTotalPrice(localTotalPrice);
+    
+    // }, []);
  
 
     let foundProduct;
     let index;
 
 
-    useEffect(() => {
-      if (cartItems?.length) {
-        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-      sessionStorage.setItem('totalPrice', totalPrice.toString());}
-    }, [cartItems, totalPrice]);
+    // useEffect(() => {
+    //   if (cartItems?.length) {
+    //     sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    //   sessionStorage.setItem('totalPrice', totalPrice.toString());}
+    // } else {
+    //   sessionStorage.removeItem('cartItems');
+    //   sessionStorage.removeItem('totalPrice');
+    // }}, [cartItems, totalPrice]);
+
+    // useEffect(() => {
+    //   if (cartItems?.length) {
+    //     sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    //     sessionStorage.setItem('totalPrice', totalPrice.toString());
+    //   } 
+    // }, [cartItems, totalPrice]);
   
 
 
@@ -86,7 +95,7 @@ export const StateContext = ({children}) => {
           }
         })
       //   setCartItems([ { ...foundProduct, quantity: foundProduct.quantity + 1 },...newCartItems ]);
-        console.log('already in cart is : ' + updatedCartItems)
+        // console.log('already in cart is : ' + updatedCartItems)
       setCartItems(updatedCartItems)
       } else {
         product.quantity = quantity;
@@ -107,7 +116,11 @@ export const StateContext = ({children}) => {
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
       setCartItems(newCartItems);
       setQty(1)
+
+      
     }
+
+    
 
     function incQty(){
       if(qty<=5) setQty((prevQty)=> prevQty + 1)
@@ -121,7 +134,7 @@ export const StateContext = ({children}) => {
    
       foundProduct = cartItems.find((item) => item._id === id)
       index = cartItems.findIndex((product) => product._id === id);
-      console.log( 'cart items is quantity : ' , cartItems[index].quantity)
+      // console.log( 'cart items is quantity : ' , cartItems[index].quantity)
       const newCartItems = cartItems.map((cartItem)=>{
         if(cartItem._id == id){
           if(value == 'inc'){
@@ -155,7 +168,7 @@ export const StateContext = ({children}) => {
         }
       }
 
-      console.log('total price now is :' + totalPrice, foundProduct.quantity )
+      // console.log('total price now is :' + totalPrice, foundProduct.quantity )
 
     }
 

@@ -2,8 +2,6 @@ import NextAuth from "next-auth";
 import Users from "@/models/User";
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import FacebookProvider from "next-auth/providers/facebook";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGO_URI;
@@ -37,7 +35,6 @@ export const authOptions = {
             const userExists = await users.findOne({ email: user.user.email });
             
             if (!userExists) {
-              // await users.insertOne(session);
               await Users.create(session);
             }
     

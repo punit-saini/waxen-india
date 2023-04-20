@@ -62,7 +62,6 @@ export default function orderDetails(props){
 
 export  async function getServerSideProps(context){
    const session = await getSession(context);
-   const user = await Users.findOne({email : session.user.email})
   // console.log('user details are  : ', userDetails)
   if(!session){
     return {
@@ -72,6 +71,8 @@ export  async function getServerSideProps(context){
       }
     }
   }
+  const user = await Users.findOne({email : session.user.email})
+
   return {
     props : {
       orderName : user.orders[user.orders.length-1]?.orderName || "",
