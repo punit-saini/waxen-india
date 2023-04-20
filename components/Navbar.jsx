@@ -38,7 +38,7 @@ export default ()=>{
                </div>
                <div className='flex gap-3'>
                      <div className="profile">
-                        {session.data==null?<button className=' text-[#ffc700]  text-sm' onClick={signIn}>Sign In / Up?</button> : <Link href={'/my-profile'}><img src={session.data.user.image} className='w-7 h-7 rounded-full border-2 border-[#ffc700]' alt='user-profile'></img></Link>}
+                        {session.data==null?<button className=' text-[#ffc700] mt-1  text-md' onClick={signIn}>Sign In</button> : <Link href={'/my-profile'}><img src={session.data.user.image} className='w-7 h-7 rounded-full border-2 border-[#ffc700]' alt='user-profile'></img></Link>}
                      </div>
                      <div className="saved-icon">
                         <Link href={'/wishlist'}><img src='../Star.png' className='w-7 ' alt='saved-images'></img></Link>

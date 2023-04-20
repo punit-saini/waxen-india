@@ -1,7 +1,6 @@
 import React from "react";
 import { Toast } from "react-hot-toast";
 import Users from "@/models/User";
-import { connectToDatabase } from "./db";
 import { useSession, getSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { client } from "@/lib/client";
@@ -9,6 +8,11 @@ import { urlFor } from "@/lib/client";
 
 export default function(props) {
   const { products, userId } = props;
+  const handleClick =  () => {
+    setTimeout(()=>{
+    toast.success("Removed from the wishlist", {duration : 2000, position : 'bottom-center', style : { background : '#222720', color : '#ffc700', marginBottom : '5rem'}});
+    }, 1000)
+ }
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -51,7 +55,7 @@ export default function(props) {
                 >
                   <input className="hidden" value={userId} name="userId" />
                   <input className="hidden" value={product._id} name="productId" />
-                  <button
+                  <button onClick={handleClick}
                     type="submit"
                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                   >

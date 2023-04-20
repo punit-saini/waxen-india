@@ -5,11 +5,10 @@ export default ()=>{
        <img alt="logo" className=" w-3/5 mx-auto" src="../logo.png" />
        <nav className="w-5/6 mx-auto">
           <ul className="flex text-gray-300 flex-wrap justify-around pt-3 text-sm">
-            <li><a href="#">Return Policy</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Data Safety</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contactttttt Us</a></li>
+            <li><a href="/return-policy">Return Policy</a></li>
+            <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+            <li><a href="/data-safety">Data Safety</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
        </nav>
        <p className="text-sm">Developed & Maintained By <a target={"_blank"} href="https://instagram.com/punit_not_puneet" className=" text-gray-500 underline">Punit Kumar Saini</a></p>

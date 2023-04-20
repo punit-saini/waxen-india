@@ -26,9 +26,11 @@ const productCard = ({productsData})=> {
 
     return (
         
-    <> 
+    <>
 
-    { productsData && productsData.map((product)=>(
+
+
+    { productsData.length>=1 ? productsData.map((product)=>(
 
 
     <div key={product._id} className="card w-[45%] drop-shadow-lg hover:drop-shadow-md text-[#22292e] bg-[#f9f9f9] rounded mb-12 font-Nunito tracking-normal leading-1 ">
@@ -71,7 +73,7 @@ const productCard = ({productsData})=> {
      </div>
      
             
-    ))}
+    )): <h1>No Product Found</h1>}
 
 
      

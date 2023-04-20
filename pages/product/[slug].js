@@ -5,7 +5,8 @@ import { useStateContext } from '../../context/StateContext';
 import { client } from '@/lib/client';
 import { urlFor } from '@/lib/client';
 import { toast } from 'react-hot-toast';
-import cookie from "cookie"
+import { getSession } from 'next-auth/react';
+import user from '@/sanity/schemas/user';
 
 
  
@@ -13,7 +14,12 @@ import cookie from "cookie"
    
     const {fullName, finalPrice, actualPrice, image, qtyUnit, description, _id} = data
     const [index, setIndex] = useState(0)
-    const { isDesc, setIsDesc,adder, qty, incQty, decQty,sessionChecker } = useStateContext();
+    const { adder, qty, incQty, decQty,sessionChecker } = useStateContext();
+    const handleClick =  () => {
+       setTimeout(()=>{
+       toast.success("Added to the wishlist", {duration : 2000, position : 'bottom-center', style : { background : '#222720', color : '#ffc700', marginBottom : '5rem'}});
+       }, 1000)
+    }
 
   return (
     <div className="">
@@ -43,10 +49,12 @@ import cookie from "cookie"
                    <h2 className=' bg-red-600 rounded-2xl text-white px-3 py-1'>{Math.floor(100-((finalPrice/actualPrice)*100))}% off</h2>
                    {/* wishlist */}
                    <form id='wishList-form' action="/api/db/addToWishList" method="POST">
+                   <div>
                        <input className='hidden' type='text' name='productId' value={_id}/>
                        <input className='hidden' type='text' name='userId' value={sessionChecker().data?.user.email}/>
                        {/* {console.log('session checker output is : ', sessionChecker())}; */}
-                       <button type='submit'><img className=' cursor-pointer' alt='star' src='../Star.png' /></button>
+                       <button onClick={handleClick}><img className=' cursor-pointer' alt='star' src='../Star.png' /></button>
+                    </div>
                    </form>
                 </div>
                 <div className='price-n-addToCart flex mt-3 justify-between flex-grow-0'>

@@ -1,13 +1,19 @@
 // schemas/pet.js
 export default {
-    name: 'pet',
+    name: 'banner',
     type: 'document',
-      title: 'Pet',
+      title: 'Banner Image',
     fields: [
       {
-        name: 'name',
-        type: 'string',
-        title: 'Name'
+        name: 'image',
+        type: 'image',
+        title: 'Image',
+        validation : Rule => Rule.required()
+      },
+      {
+        name : 'link',
+        type : 'string',
+        title : "Link"
       }
     ]
   }

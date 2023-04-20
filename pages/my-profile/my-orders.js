@@ -14,7 +14,7 @@ export default function(props) {
     return (
       <div className="container mx-auto my-10 flex flex-wrap w-11/12">
         <h1 className="w-full text-3xl font-bold mb-6">Order History</h1>
-        {orders.map((order) => {
+        {orders.length>=1 ? orders.map((order) => {
           return (
             <div
               key={order._id}
@@ -75,7 +75,7 @@ export default function(props) {
               </div>
             </div>
           );
-        })}
+        }): <p>No Orders Yet</p>}
       </div>
     );
   

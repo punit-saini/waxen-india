@@ -10,7 +10,8 @@ export default ()=>{
         <div className='my-4'>
                     <h2 className=' text-center mx-auto my-10 font-bold text-xl'>Search Results</h2>
                     <div className='card-container mb-3 my-2 flex justify-between  flex-wrap'>
-                        { products &&  <Product_Card productsData={JSON.parse(products)} /> }
+                        {console.log('thses are products', products)}
+                        { products && <Product_Card productsData={JSON.parse(products)} />}
                     </div>
         </div>
        

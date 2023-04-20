@@ -30,6 +30,8 @@ export const StateContext = ({children}) => {
     const [isDesc, setIsDesc] = useState(true);
     const [query, setQuery] = useState('');
     const [imagevar, setImageVar]=useState("add");
+    const [showMessage, setShowMessage]= useState(false)
+    const [messageText, setMessageText]=useState('');
 
 
     useEffect(() => {
@@ -96,6 +98,8 @@ export const StateContext = ({children}) => {
       toast.success(`${qty} ${product.shortName} added to the cart.`, {duration : 2000, position : 'bottom-center', style : { background : '#222720', color : '#ffc700', marginBottom : '5rem'}});
     } 
 
+
+ 
     const onRemove = (product) => {
       foundProduct = cartItems.find((item) => item._id === product._id);
       const newCartItems = cartItems.filter((item) => item._id !== product._id);
