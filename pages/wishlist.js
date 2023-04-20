@@ -73,6 +73,7 @@ export default function(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  console.log("session here is", session);
   if (!session) {
     return {
       redirect: {
