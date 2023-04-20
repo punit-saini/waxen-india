@@ -18,7 +18,7 @@ export const authOptions = {
           clientSecret : '66dab07737958e7c8eecc570e2da39846709102e'
       }),
     ],
-    secret : process.env.NEXT_PUBLIC_SECRET,
+    secret: "LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=",
     callbacks: {
         async signIn(user, account, profile) {
           const session = {
