@@ -7,6 +7,10 @@ import { urlFor } from '@/lib/client';
 import { toast } from 'react-hot-toast';
 import cookie from "cookie"
 
+import review from '@/sanity/schemas/review';
+import { useSession, getSession, signIn } from 'next-auth/react';
+
+
 
  
   export default function slug({data, reviewsData}){
@@ -14,10 +18,29 @@ import cookie from "cookie"
     const {fullName, finalPrice, actualPrice, image, qtyUnit, description, _id} = data
     const [index, setIndex] = useState(0)
     const { isDesc, setIsDesc,adder, qty, incQty, decQty,sessionChecker } = useStateContext();
+    // const  session = useSession()
+  // submitReview({
+  //   product_id : data._id, 
+  //   text : 'This product is amazing!',
+  //   rating: 5,
+  //   author: 'John Doe'
+  // })
 
+  // Favorite Adder 
+  // console.log('session checker is ', sessionChecker().data?.user.email)
+  //  useEffect(()=>{
+  //      const toastMessage = cookie.parse(document.cookie).toastMessage;
+  //      console.log('toast message is : \n\n\n\\n\n\n', toastMessage)
+  //      if(toastMessage){
+  //         toast.success(toastMessage);
+  //         document.cookie = "toastMessage=; Max-Age=-99999999;";
+  //      }
+       
+  //  },[]);
   return (
     <div className="">
        <h1 className=' stick mt-3 mb-1 w-11/12 mx-auto text-sm font-semibold'>{fullName}</h1>
+
         <div>
 
           <div className="image-container w-11/12 rounded-lg h-80 bg-[#ebebeb]  mx-auto flex flex-col">
@@ -45,7 +68,7 @@ import cookie from "cookie"
                    <form id='wishList-form' action="/api/db/addToWishList" method="POST">
                        <input className='hidden' type='text' name='productId' value={_id}/>
                        <input className='hidden' type='text' name='userId' value={sessionChecker().data?.user.email}/>
-                       {/* {console.log('session checker output is : ', sessionChecker())}; */}
+                       {console.log('session checker output is : ', sessionChecker())};
                        <button type='submit'><img className=' cursor-pointer' alt='star' src='../Star.png' /></button>
                    </form>
                 </div>
@@ -65,24 +88,12 @@ import cookie from "cookie"
             <Link href={'/checkout/cart'} className='cta-btn rounded-3xl px-3 py-2 drop-shadow-xl hover:drop-shadow-sm font-bold bg-[#ffc700] text-white outline' onClick={()=> {adder(data,qty);}}>Buy Now</Link>
         </div>
 
-        {/* <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
+        <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
              <button className={` py-1 w-4/5`}>Description</button>
-        </div> */}
-        {/* <div className='details-n-reviews flex justify-around w-11/12 mx-auto bg-[#d9d9d9] rounded-2xl py-2 px-3 my-4 sticky top-1'>
-          <button className={`py-1 w-4/5 text-sm animate-pulse`} style={{backgroundImage: 'linear-gradient(to right, #4dc0b5 , #4cb8b0, #4baea8, #4aa49f, #489a97)'}}>Description</button>
-        </div> */}
-        <h2 class="text-gray-800 text-2xl font-bold mb-4 w-11/12 mx-auto">Description</h2>
-
-
-        {/* <div className='description w-11/12 mx-auto my-5'>
-             <p className='text-[#8a8a8e] text-justify'>{description}</p>
-        </div> */}
-        <div class="p-6 bg-gray-100 rounded-lg">
-          <p class="text-lg font-medium text-gray-800 leading-relaxed">
-            {description}
-          </p>
         </div>
-
+        {<div className='description text-[#8a8a8e] w-11/12 mx-auto text-justify my-5'>
+            <p>{description}</p>
+        </div>}
         
        
 
@@ -91,6 +102,52 @@ import cookie from "cookie"
   )
 }
 
+// function reviewThrower(review, length){
+//    return <>
+//             <div className='review-card'>
+//                 <div className='image-n-userName flex gap-3 align-middle'>
+//                       <img alt='user-icon' className=' w-6' src='../user.webp.webp' />
+//                       <p className='pt-1'>{review.author}</p>
+//                 </div>
+//                 <div className="cart-product-ratings flex gap-1">
+//                           <div className="rating-card px-2 bg-green-700 rounded text-white flex gap-1 items-center">
+//                               <p>{review.rating}</p>
+//                               <img alt='rating' className='w-4 h-4' src='../star-rating.png' />
+//                           </div>
+//                           <p className=' font-semibold text-slate-600 text-sm'>{length}</p>
+//                       </div>
+//                 <p className=' text-[#8a8a8e] text-sm'>{review._updatedAt.slice(0,10)}</p>
+//                 <p className='review detail text-gray-500 border-b-2 border-gray-200 pb-2 leading-tight mt-2'>{review.text}</p>
+  
+//             </div>
+//    </>
+// }
+
+// const submitReview = async (reviewData) => {
+//   try {
+//     const result = await client.create({
+//       _type: 'reviews',
+//       ...reviewData
+//     })
+//     console.log('Review submitted successfully!', result)
+//   } catch (error) {
+//     console.error('Error submitting review', error)
+//   }
+// }
+
+// async function favoriteAdder(_id){
+  // const session = getSession();
+  // if(session.data==null){
+  //   console.log('insdie here')
+  //   return <h1 onClick={signIn}>Sign In</h1>
+  // }
+  // else {
+//     const user = Users.findOne({email : session.user.email})
+//     console.log('user inside state conetxt is : ', user)
+//     user.wishlist.push(_id);
+//     await user.save();
+//   }
+// }
 
 
 

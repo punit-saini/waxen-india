@@ -14,7 +14,7 @@ export default function cart(){
   const { totalPrice, cartItems, toggleCartItemQuanitity, onRemove, sessionChecker } = useStateContext();
   
    
-    const [showPlaceOrder, setShowPlaceOrder] = useState(false)
+    // const [showPlaceOrder, setShowPlaceOrder] = useState(false)
  console.log('Cart items are : ', cartItems)
 //  console.log('product string is : \n' + productString)
  const userData = sessionChecker();
@@ -34,43 +34,40 @@ export default function cart(){
 
         <div className="cart-product-container w-11/12 mx-auto py-8">
 
-
-
         {cartItems.length>=1 && cartItems.map((cartItem)=>{
-                // {console.log('cart item name is ', cartItem.shortName)}
-            return (
-          <div className="cart-product flex gap-5 bg-gray-50 drop-shadow-md rounded py-2 mb-8 px-2"  >
-                <div className="cart-product-imgNqty w-1/3 flex flex-col gap-2 justify-center">
-                        <img alt='cart-img' src={urlFor(cartItem.image[0])} className='h-24' />
-                        <div className='addToCart flex justify-end gap-1'>
-                            <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'dec') } className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>-</button>
-                            <button className='px-2 font-bold rounded-lg text-l bg-white border-2 border-[#828282]'>{cartItem.quantity}</button>
-                            <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'inc') } className='px-2 font-bold rounded-lg text-3xl bg-[#e5e5ea] text-[#828282]'>+</button>
-                        </div>
-                </div>
-                <div className="cart-product-details">
-                    <h2 className='mt-2 text-lg font-bold'>{cartItem.shortName}</h2>
-                    <p className='text-sm text-[#828282]'>{cartItem.qtyUnit}</p>
-                    <div className="cart-product-ratings flex gap-1">
-                        <div className="rating-card px-2 bg-green-700 rounded text-white flex gap-1 items-center">
-                            <p>4.2</p>
-                            <img alt='rating' className='w-4 h-4' src='../star-rating.png' />
-                        </div>
-                        <p className=' font-semibold text-slate-600 text-sm'>(12)</p>
-                    </div>
-                    <div className="cart-product-price flex mt-1 gap-2 items-center">
-                        <h2 className=' font-bold text-lg'>{cartItem.finalPrice}</h2>
-                        <p className='line-through text-sm text-[#828282]'>{cartItem.actualPrice}</p>
-                        <p className='text-green-700 '>{Math.floor(100-((cartItem.finalPrice/cartItem.actualPrice)*100))}% off</p>
-                    </div>
-                    <div onClick={()=> onRemove(cartItem)} className="cart-product-remove absolute bottom-3 right-5 flex mt-5 items-center justify-end gap-1">
-                        <img alt='trash-icon' className='w-6' src='../trash.png' />
-                        <button className=' text-slate-600' > Remove </button>
-                    </div>
-                </div>
-           </div>)
+              return (
+                  <div className="flex flex-col md:flex-row md:items-center justify-between bg-gray-50 border border-gray-200 rounded-lg shadow-md py-4 px-2 mb-8">
+                      <div className="w-full md:w-1/3 flex flex-col gap-2 items-center">
+                          <img alt='cart-img' src={urlFor(cartItem.image[0])} className='w-40 h-40 object-contain' />
+                          <div className='flex justify-center items-center gap-2'>
+                              <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'dec') } className='px-3 py-1 rounded-lg text-sm text-gray-700 border border-gray-400'>-</button>
+                              <button className='px-3 py-1 font-semibold rounded-lg text-base bg-white text-gray-700 border border-gray-400'>{cartItem.quantity}</button>
+                              <button onClick={() => toggleCartItemQuanitity(cartItem._id, 'inc') } className='px-3 py-1 rounded-lg text-sm text-gray-700 border border-gray-400'>+</button>
+                          </div>
+                      </div>
+                      <div className="w-full md:w-2/3 flex flex-col gap-2">
+                          <div className="flex flex-col">
+                              <h2 className='text-base md:text-lg font-semibold text-gray-700'>{cartItem.shortName}</h2>
+                              <p className='text-sm md:text-base text-gray-400'>{cartItem.qtyUnit}</p>
+                          </div>
+                          <div className="flex flex-col md:flex-row justify-between items-center">
+                              <div className="flex gap-2 items-center">
+                                  <h2 className='font-bold text-lg text-gray-700'>{cartItem.finalPrice}</h2>
+                                  <p className='line-through text-sm text-gray-400'>{cartItem.actualPrice}</p>
+                                  <p className='text-green-700'>{Math.floor(100-((cartItem.finalPrice/cartItem.actualPrice)*100))}% off</p>
+                              </div>
+                              <div onClick={()=> onRemove(cartItem)} className="cart-product-remove flex items-center gap-2 cursor-pointer">
+                                  <img alt='trash-icon' className='w-6' src='../trash.png' />
+                                  <button className='text-gray-700 font-medium' >Remove</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              )
+          })}
 
-       })}
+
+
 
 
         </div>
@@ -92,8 +89,8 @@ export default function cart(){
 
               </div>
            </div> }
-       { cartItems.length>=1 && !showPlaceOrder && <div className="checkout-btn pt-4 pb-10 w-11/12 mx-auto text-center">
-           <Link onClick={()=> setShowPlaceOrder(true)} className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'/checkout/order-details'}>Checkout</Link>
+       { cartItems.length>=1 && <div className="checkout-btn pt-4 pb-10 w-11/12 mx-auto text-center">
+           <Link className='rounded-full px-6 py-3  bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'/checkout/order-details'}>Checkout</Link>
            </div>} 
 
 
@@ -101,8 +98,8 @@ export default function cart(){
 {/* ////////////////// */}
 
 {/* session.data==null? <h1>Sign In first</h1>  : */}
-          {  showPlaceOrder &&  <>
-           </>}
+          {/* {  showPlaceOrder &&  <>
+           </>} */}
 
     </div>
   )

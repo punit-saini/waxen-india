@@ -1,74 +1,66 @@
 import React from 'react'
-import { Cart } from './';
+// import { Cart } from './';
 import { useSession, signIn, signOut} from 'next-auth/react'
 import { useStateContext} from '../context/StateContext';
 import {  useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { client } from '@/lib/client';
+import Results from './results';
 
 
 export default ()=>{
-       const { cartItems, query, setQuery} = useStateContext(); 
-      //  const [results, setResults] = useState([])
-      //  useEffect(()=>{
-      //    console.log('query is ', query)
-      //  }, [query])
-      //  const handleSubmit = async (e) => {
-      //    e.preventDefault();
-      //    const res = await client.fetch(`*[_type == "product" && category == 'dairy']`);
-      //    console.log(res)
-      //  }
+       const { cartItems} = useStateContext(); 
+      const router = useRouter();
       const session=useSession()
-           const [search,setSearch]=useState(false);
-           const handleSearchChange = async(e) => {
-            setQuery(e.target.value);
-            if(e.target.value=='') {
-               setSearch(false)
-               return 
-            }
-            console.log('i am in')
-            setSearch(true)
-           }
-           const queryDeletor = async()=>{
-            setQuery('')
-            setSearch(false)
-           }
+      console.log('session is : ', session)
+      const [query, setQuery] = useState('');
+      const [showResult, setShowResult] = useState(false)
+      const [results, setResults]= useState([]);
+      async function handleSubmit(event){
+         event.preventDefault();
+         const response = await fetch(`/api/search?q=${query}`)
+         const data = await response.json();
+         console.log('yeah! data is : ',data)
+         setShowResult(true)
+         setResults(data.data);
+         router.push({
+            pathname : "/results",
+            query : { products : JSON.stringify(data)}
+         })
+      }
     return( 
         <>
-
         <div className="bg-[#22292e] ">
             <div className="brandNicons flex justify-between w-11/12 align-middle mx-auto pt-4">
-               <div className="top-logo w-44">
+               <div className="top-logo w-36">
                   <Link href={'/'}><img src="../logo.png" alt="waxen-india logo" /></Link>
                </div>
                <div className='flex gap-3'>
                      <div className="profile">
-                        {session.data==null?<button onClick={signIn}>Sign In</button> : <button onClick={signOut}><img src='../User Profile 4.png' className='w-7 mt-1' alt='user-profile'></img></button>}
+                        {session.data==null?<button className=' text-[#ffc700]  text-sm' onClick={signIn}>Sign In / Up?</button> : <Link href={'/my-profile'}><img src={session.data.user.image} className='w-7 h-7 rounded-full border-2 border-[#ffc700]' alt='user-profile'></img></Link>}
                      </div>
                      <div className="saved-icon">
-                        <img src='../Star.png' className='w-7 mt-1' alt='saved-images'></img>
+                        <Link href={'/wishlist'}><img src='../Star.png' className='w-7 ' alt='saved-images'></img></Link>
                      </div>
-                     <div className="top-icons cursor-pointer flex justify-end items-center">
-                        <Link href={'/checkout/cart'}><img src="../Shopping Cart.png" className=" w-7" alt="shopping cart icon" /></Link>
+                     <Link href={'/checkout/cart'} className="top-icons cursor-pointer flex justify-end items-center">
+                        <img src="../Shopping Cart.png" className=" mb-2 w-7" alt="shopping cart icon" />
                         <span className={` ${cartItems.length>=1? '' : 'hidden'} rounded-full relative right-2 bottom-2 text-white text-xs px-1 bg-red-500`}>{cartItems.length}</span>
-                     </div>
+                     </Link>
+                  
               
                </div>
 
             </div>
           
-             <form className="flex py-2 w-full text-center m-auto">
-                <input type={"text"} className=" w-full px-3 pr-16 py-2 m-auto text-sm relative left-3 text-[#59595a]" name='query' value={query} onChange={handleSearchChange} placeholder="Search for products & brands"></input>
-                <div className='flex z-50'>
-                  {search && <img alt='search-icon' className="w-3 h-3 relative right-11 top-3 cursor-pointer" onClick={queryDeletor}  src={"./cross.png"} />}
-                  <button href={`/search/${query}`} className="w-7 h-7 relative right-9 bottom-1" >
+             <form onSubmit={handleSubmit} className="flex py-2 w-full text-center m-auto">
+                <input type="text" className=" w-full px-3 pr-16 py-2 m-auto text-sm relative left-3 text-[#59595a]" value={query} onChange={((event)=> setQuery(event.target.value))} placeholder="Search for products & brands"/>
+                  <button type='submit' className="w-7 h-7 relative right-9 bottom-1" >
                    <img alt='search-icon' className='relative top-2' src="../search.png" />
                   </button>
-                </div>
-                
              </form>
         </div>
-        
+        {/* {showResult && < Results data={results} />} */}
         {/* {showCart && <Cart />} */}
         </>
      )

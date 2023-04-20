@@ -22,7 +22,7 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
           <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
               <Link href={"/category/fruits-n-vegetables"} className="category-card w-32 flex flex-col gap-1 pr-1">
                   <img alt='vegetables' className='w-16 h-12 rounded-lg' src="./vegetables.png" />
-                  <p className="text-[12px] leading-none font-semibold" >Vegggetables</p>                    
+                  <p className="text-[12px] leading-none font-semibold" >Vegetables</p>                    
               </Link>
               <Link href={"/category/groceries"} className="category-card w-32 flex flex-col gap-1 pr-1">
                    <img alt='groceries' className='w-16 h-12 rounded-lg' src="./groceries.png" />
@@ -124,10 +124,10 @@ export default  function Home({popularDeals, drinksNBeverages, dairy , grocery})
 
 export async function getServerSideProps() {
     
-    const popularDeals = await client.fetch(`*[_type == "product" && ('popular' in tags)]`);
-    const drinksNBeverages = await client.fetch(`*[_type == "product" && category == "drinks-n-beverages"]`);
-    const dairy = await client.fetch(`*[_type == "product" && category == "dairy"]`)
-    const grocery = await client.fetch(`*[_type == "product" && category == "grocery"]`)
+    const popularDeals = await client.fetch(`*[_type == "product" && ('popular' in tags)][0...3]`);
+    const drinksNBeverages = await client.fetch(`*[_type == "product" && category == "drinks-n-beverages"][0...3]`);
+    const dairy = await client.fetch(`*[_type == "product" && category == "dairy"][0...3]`)
+    const grocery = await client.fetch(`*[_type == "product" && category == "grocery"][0...3]`)
 
     return {
       props: {
