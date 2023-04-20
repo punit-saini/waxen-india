@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import { signIn, useSession } from 'next-auth/react';
 
 const Context = createContext();
-
+ 
 export const StateContext = ({children}) => {
 
     // Session 
