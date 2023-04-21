@@ -77,15 +77,13 @@ export  async function getServerSideProps(context){
   });
   console.log(`MongoDB Connected: ${conn.connection.host}`);
   const user = await Users.findOne({email : session.user.email})
-  // console.log('user details find insdie orderDetails are : ', user)
   await mongoose.connection.close();
 
   return {
     props : {
-      orderName : user.orders[user.orders.length-1]?.orderName || "",
-      street : user.orders[user.orders.length-1]?.address.street || "",
-      mobile : user.orders[user.orders.length-1]?.mobile || ""
+      orderName : user?.orders[user.orders.length-1]?.orderName || "",
+      street : user?.orders[user.orders.length-1]?.address.street || "",
+      mobile : user?.orders[user.orders.length-1]?.mobile || ""
     }
   }
-
 }
