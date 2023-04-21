@@ -52,7 +52,7 @@ export default ()=>{
              <form onSubmit={handleSubmit} className="flex py-2 w-full text-center m-auto">
                 <input type="text" className=" w-full px-3 pr-16 py-2 m-auto text-sm relative left-3 text-[#59595a]" value={query} onChange={((event)=> setQuery(event.target.value))} placeholder="Search for products & brands"/>
                   <button type='submit' className="w-7 h-7 relative right-9 bottom-1" >
-                   <img alt='search-icon' className='relative top-2' src="../search.png" />
+                   <img alt='search-icon' className='relative top-2' src="../Search.png" />
                   </button>
              </form>
         </div>
