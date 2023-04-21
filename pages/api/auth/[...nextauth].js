@@ -36,7 +36,7 @@ export const authOptions = {
             const userExists = await users.findOne({ email: user.user.email });
             console.log('value of useexists is  : ', userExists)
             if (!userExists) {
-              await users.create(session);
+              await Users.create(session);
               console.log('new user created')
             }
     
