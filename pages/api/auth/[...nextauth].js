@@ -34,9 +34,10 @@ export const authOptions = {
             await client.connect();
             const users = client.db().collection("users");
             const userExists = await users.findOne({ email: user.user.email });
-            
+            console.log('value of useexists is  : ', userExists)
             if (!userExists) {
-              await Users.create(session);
+              await users.create(session);
+              console.log('new user created')
             }
     
             await client.close();
