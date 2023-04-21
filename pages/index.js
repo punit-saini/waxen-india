@@ -18,7 +18,7 @@ export default  function Home({popularDeals, drinksNBeverages, grocery, bannerIm
 
       <main className='bg-[#fbfbfb]'>
         {/* Categories */}
-          <div className="categories-bar flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
+          <div className="categories-bar dark:text-white flex w-full flex-nowrap overflow-x-auto pb-1 pt-1 px-2 bg-[#fbfbfb] mx-auto text-center border-b-4 border-[#ffc700]">
               
               <Link  href={"/category/services"} className="category-card w-32 flex flex-col gap-1 pr-1">
                   <img alt='services' className='w-16 h-12 rounded-lg' src="./services.png" />
