@@ -1,7 +1,11 @@
 import React from 'react'
 import Users from '@/models/User';
+import mongoose from 'mongoose';
+
 
 export default async function addOrder(req, res) {
+
+const connectMongo = async () => mongoose.connect(process.env.MONGO_URI).then(()=> console.log('connect to mongodb sucessfully!'))
     try {
       let totalPrice=0;
       const cartItems = JSON.parse(req.body.cartItems)
