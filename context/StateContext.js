@@ -175,13 +175,13 @@ export const StateContext = ({children}) => {
 
   // Database 
 
-  try {
-    const connectMongo = async () => mongoose.connect(process.env.MONGO_URI);
-    mongoose.set('strictQuery', false);
-    connectMongo().then(console.log('connected to mongodb'));
-  } catch (error) {
-    console.log(error)
-  }
+  // try {
+  //   const connectMongo = async () => mongoose.connect(process.env.MONGO_URI);
+  //   mongoose.set('strictQuery', false);
+  //   connectMongo().then(console.log('connected to mongodb'));
+  // } catch (error) {
+  //   console.log(error)
+  // }
 
 
 

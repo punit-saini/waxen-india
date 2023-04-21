@@ -15,7 +15,7 @@ export default function cart(){
   
    
     // const [showPlaceOrder, setShowPlaceOrder] = useState(false)
- console.log('Cart items are : ', cartItems)
+//  console.log('Cart items are : ', cartItems)
 //  console.log('product string is : \n' + productString)
  const userData = sessionChecker();
  

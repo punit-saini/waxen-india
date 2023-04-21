@@ -9,7 +9,7 @@ export default function FnV({fruitsNVegetables}){
         <>
 
             { fruitsNVegetables.length>=1 ? ( <div className='min-h-screen'>
-                                          <h1 className=' text-center text-xl font-bold w-5/6 my-8 mx-auto'>Fruits & Vegetables</h1>
+                                          <h1 className=' text-center text-xl font-bold w-5/6 my-8 mx-auto'>Waxen Annual Maintainence Services</h1>
                                           <div className='card-container mb-3 flex justify-between flex-wrap'>
                                             <Product_Card productsData={fruitsNVegetables} />
                                           </div>

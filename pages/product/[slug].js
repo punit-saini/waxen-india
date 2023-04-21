@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast';
     const handleClick =  () => {
        setTimeout(()=>{
        toast.success("Added to the wishlist", {duration : 2000, position : 'bottom-center', style : { background : '#222720', color : '#ffc700', marginBottom : '5rem'}});
-       }, 1000)
+       }, 2000)
     }
 
   return (

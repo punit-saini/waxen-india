@@ -4,6 +4,7 @@ import Orders from "@/models/Order";
 import orderDetails from "../checkout/order-details";
 import Link from "next/link";
 import Users from "@/models/User";
+import mongoose from "mongoose";
 import { client } from "@/lib/client";
 
 export default function(props) {
@@ -92,9 +93,16 @@ export async function getServerSideProps(context) {
       }
   }
   else {
+
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
     console.log("session email is ", session.user.email);
 
     const user = await Users.find({ email: session.user.email }).exec();
+    await mongoose.connection.close();
     return {
       props: {
         orders: JSON.parse(JSON.stringify(user[0].orders)),

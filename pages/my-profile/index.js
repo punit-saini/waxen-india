@@ -4,10 +4,8 @@ import { getSession, signOut} from "next-auth/react";
 
 
 export default function(props){
-    // const {sessionChecker} = useStateContext();
     const {name,image,email } = props
 
-    // console.log('session iss ssss : ', name)
     return <div className=" text-center my-auto">
        <div className="detail-container text-center w-5/6 my-10 mx-auto">
           <img src={image} className="w-20 h-20 rounded-full mx-auto mb-8 border-2 border-[#ffc700]" />

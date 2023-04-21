@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useStateContext } from "@/context/StateContext";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Users from "@/models/User";
+import mongoose from "mongoose";
 
 
 export default function orderDetails(props){
@@ -48,11 +49,10 @@ export default function orderDetails(props){
               </div>
                 <input className='hidden w-0' type="text" name="cartItems" value={JSON.stringify(cartItems)}  />
                 <input className='hidden' type="text" name="totalPrice" value={totalPrice} />
-                <input className='hidden' type="text" name="userId" value={session.data.user.email} />
+                <input className='hidden' type="text" name="userId" value={session.data?.user.email} />
               <div className="place-order-btn pb-24 w-11/12 mx-auto text-center">
               <button type='submit' className='rounded-full px-6 py-3 bg-[#ffc700] text-white text-lg font-bold drop-shadow-lg' href={'#delivery-detail'}>Place Order</button>
               </div>
-              {console.log('cart items here inside order details are : ', cartItems[0].actualPrice)}
            </form>
         </>
 }
@@ -71,7 +71,14 @@ export  async function getServerSideProps(context){
       }
     }
   }
+  const conn = await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  console.log(`MongoDB Connected: ${conn.connection.host}`);
   const user = await Users.findOne({email : session.user.email})
+  // console.log('user details find insdie orderDetails are : ', user)
+  await mongoose.connection.close();
 
   return {
     props : {
@@ -80,9 +87,5 @@ export  async function getServerSideProps(context){
       mobile : user.orders[user.orders.length-1]?.mobile || ""
     }
   }
-  // return {
-  //   props : {
-  //     detail : ''
-  //   }
-  // }
+
 }

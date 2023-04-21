@@ -5,14 +5,10 @@ import { useSession, getSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { client } from "@/lib/client";
 import { urlFor } from "@/lib/client";
+import mongoose from "mongoose";
 
 export default function(props) {
   const { products, userId } = props;
-  const handleClick =  () => {
-    setTimeout(()=>{
-    toast.success("Removed from the wishlist", {duration : 2000, position : 'bottom-center', style : { background : '#222720', color : '#ffc700', marginBottom : '5rem'}});
-    }, 1000)
- }
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -55,7 +51,7 @@ export default function(props) {
                 >
                   <input className="hidden" value={userId} name="userId" />
                   <input className="hidden" value={product._id} name="productId" />
-                  <button onClick={handleClick}
+                  <button
                     type="submit"
                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                   >
@@ -82,25 +78,44 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const user = await Users.find({ email: session.user.email }).exec();
-  const data = JSON.parse(JSON.stringify(user));
-  const products = [];
-  for (let i = 0; i < data[0].wishlist.length; i++) {
-    const query = `*[_type == "product" && _id == "${data[0].wishlist[i]}"][0]`;
-    await client
-      .fetch(query)
-      .then((product) => {
-        console.log("Product found:", product);
-        products.push(product);
-      })
-      .catch((err) => {
-        console.error("Error retrieving product:", err);
-      });
+  
+  try {
+  
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+
+    const user = await Users.find({ email: session.user.email }).exec();
+    console.log('user is :', user)
+
+    const data = JSON.parse(JSON.stringify(user));
+
+
+    const products = [];
+    for (let i = 0; i < data[0].wishlist.length; i++) {
+      const query = `*[_type == "product" && _id == "${data[0].wishlist[i]}"][0]`;
+      await client
+        .fetch(query)
+        .then((product) => {
+          // console.log("Product found:", product);
+          products.push(product);
+        })
+        .catch((err) => {
+          console.error("Error retrieving product:", err);
+        });
+    }
+    await mongoose.connection.close();
+    return {
+      props: {
+        products,
+        userId: session.user.email,
+      },
+    };
+  } catch (err) {
+    console.error("Error connecting to database:", err);
+  } finally {
+    console.log('Database disconnected');
   }
-  return {
-    props: {
-      products,
-      userId: session.user.email,
-    },
-  };
 }

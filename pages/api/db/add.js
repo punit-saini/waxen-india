@@ -1,11 +1,16 @@
 import React from 'react'
 import Users from '@/models/User';
 import mongoose from 'mongoose';
-
+import { MongoClient } from "mongodb";
 
 export default async function addOrder(req, res) {
-
-const connectMongo = async () => mongoose.connect(process.env.MONGO_URI).then(()=> console.log('connect to mongodb sucessfully!'))
+ 
+  const conn = await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  console.log(`MongoDB Connected: ${conn.connection.host}`);
+// const uri = process.env.MONGO_URI;
     try {
       let totalPrice=0;
       const cartItems = JSON.parse(req.body.cartItems)
@@ -32,13 +37,14 @@ const connectMongo = async () => mongoose.connect(process.env.MONGO_URI).then(()
          userId : req.body.userId,
         totalPrice : totalPrice,
         orderItems : orderItemsArray,
-      }
+    }
       console.log('NEW ORDER IS : ', newOrder)
-      const user= await Users.findOne({email : req.body.userId});
-      user.orders.push(newOrder)
-    
+      // const users = client.db().collection("users");
+      const user = await Users.findOne({ email: req.body.userId });
+      user.orders.push(newOrder);
       await user.save();
       console.log('CREATED DOCUMENT');
+      await mongoose.connection.close();
       res.writeHead(302, {
         Location: '/orderCompleted',
       });

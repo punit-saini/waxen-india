@@ -36,16 +36,16 @@ export default  function Home({popularDeals, drinksNBeverages, grocery, bannerIm
                   <p className="text-[12px] leading-none font-semibold" >Electronics</p>
       
               </Link>
-              <Link href={"/category/drinks-n-beverages"} className="category-card w-32 flex flex-col gap-1 pr-1">
+              <Link href={"/category/alkaline-water"} className="category-card w-32 flex flex-col gap-1 pr-1">
              
                   <img alt='beverages' className='w-16 h-12 rounded-lg' src="./water.png" />
                   <p className="text-[12px] leading-none font-semibold" >Alkaline Water</p>
              
               </Link>
 
-              <Link href={"/category/fruits-n-vegetables"} className="category-card w-32 flex flex-col gap-1 pr-1">
-                  <img alt='vegetables' className='w-16 h-12 rounded-lg' src="./vegetables.png" />
-                  <p className="text-[12px] leading-none font-semibold" >Vegetables</p>                    
+              <Link href={"/category/maintainence"} className="category-card w-32 flex flex-col gap-1 pr-1">
+                  <img alt='vegetables' className='w-16 h-12 rounded-lg' src="./maintainence.png" />
+                  <p className="text-[12px] leading-none font-semibold" >Waxen AMC</p>                    
               </Link>
               
             
@@ -161,7 +161,7 @@ export default  function Home({popularDeals, drinksNBeverages, grocery, bannerIm
 
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     
     const popularDeals = await client.fetch(`*[_type == "product" && ('popular' in tags)][0...3]`);
     const drinksNBeverages = await client.fetch(`*[_type == "product" && category == "drinks-n-beverages"][0...3]`);
