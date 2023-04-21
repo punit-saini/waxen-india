@@ -1,18 +1,13 @@
-// {
-//   "extends": "next/core-web-vitals",
-//   "rules": {
-//     // "react/no-unescaped-entities": "off",
-//     // "@next/next/no-page-custom-font": "off",
-//    "@next/next/no-img-element" : "off"
-
-//   }
-// }
-
 {
-  "extends": "next",
+<<<<<<< HEAD
+  "extends": "next/core-web-vitals",
   "rules": {
-    "react/no-unescaped-entities": "off",
-    "@next/next/no-page-custom-font": "off",
-    "@next/next/no-img-element" : "off"
+    // "react/no-unescaped-entities": "off",
+    // "@next/next/no-page-custom-font": "off",
+   "@next/next/no-img-element" : "off"
+
+=======
+  "extends": "next/core-web-vitals"
+>>>>>>> 285db41374b29fa405402e301a8e3201f0205499
   }
 }
