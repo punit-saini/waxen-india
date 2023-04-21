@@ -2,10 +2,10 @@ import NextAuth from "next-auth";
 import Users from "@/models/User";
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import { MongoClient } from "mongodb";
+// import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
-const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 export const authOptions = {
     providers : [
@@ -30,17 +30,20 @@ export const authOptions = {
           };
     
           try {
+            const conn = await mongoose.connect(process.env.MONGO_URI, {
+              useNewUrlParser: true,
+              useUnifiedTopology: true,
+            });
+            console.log(`MongoDB Connected: ${conn.connection.host}`);
             console.log('inside tryyyy')
-            await client.connect();
-            const users = client.db().collection("users");
-            const userExists = await users.findOne({ email: user.user.email });
-            console.log('value of useexists is  : ', userExists)
+            const userExists = await Users.findOne({email : user.user.email});
+            console.log('value of user exists is  : ', userExists)
             if (!userExists) {
               await Users.create(session);
               console.log('new user created')
+              await mongoose.connection.close();
             }
     
-            await client.close();
           } catch (error) {
             console.log(error);
           }
