@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     const { showCart } = useStateContext();
   return (
     
-    <div className="layout sm:w-[100%] lg:w-[30%] md:w-[40%] my-auto mx-auto">
+    <div className="layout sm:w-[100%] lg:w-[25%] md:w-[30%] my-auto mx-auto">
       <Head>
         <title>Waxen India</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
